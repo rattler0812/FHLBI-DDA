@@ -1007,6 +1007,61 @@
 						},
 						{
 							"name": "Close Account Integr",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "91da8251-616c-4b76-8468-f472e5c5a1db",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"const schema = {\r",
+											"    //Schema\r",
+											"}\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(1000,pm.response);\r",
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c9bab662-5962-4a49-b483-590f034db395",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"const schema = {\r",
+											"    //Schema\r",
+											"}\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								}
+							],
 							"id": "76b178c1-66c8-4f99-afe3-d44ef8e19478",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -1027,14 +1082,11 @@
 									"query": [
 										{
 											"key": "accountType",
-											"value": "CMS",
-											"type": "text",
-											"id": 0
+											"value": "CMS"
 										}
 									],
 									"variable": [
 										{
-											"id": 0,
 											"key": "cmsNumber",
 											"value": "77719995",
 											"type": "string"
