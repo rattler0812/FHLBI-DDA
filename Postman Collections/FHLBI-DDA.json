@@ -1012,10 +1012,10 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
+								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/close",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/close?accountType=CMS",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_Integration}}accounts"
@@ -1024,10 +1024,19 @@
 										":cmsNumber",
 										"close"
 									],
+									"query": [
+										{
+											"key": "accountType",
+											"value": "CMS",
+											"type": "text",
+											"id": 0
+										}
+									],
 									"variable": [
 										{
+											"id": 0,
 											"key": "cmsNumber",
-											"value": "",
+											"value": "77719995",
 											"type": "string"
 										}
 									]
@@ -2501,9 +2510,41 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
+								"method": "PUT",
 								"header": [],
-								"url": ""
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/close?accountType=&closeBothAccounts=",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_LL}}dda"
+									],
+									"path": [
+										"accounts",
+										":cmsNumber",
+										"close"
+									],
+									"query": [
+										{
+											"key": "accountType",
+											"value": "",
+											"type": "text",
+											"id": 0
+										},
+										{
+											"key": "closeBothAccounts",
+											"value": "",
+											"type": "text",
+											"id": 1
+										}
+									],
+									"variable": [
+										{
+											"key": "cmsNumber",
+											"value": "",
+											"type": "string"
+										}
+									]
+								}
 							},
 							"response": []
 						}
