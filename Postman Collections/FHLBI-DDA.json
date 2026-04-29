@@ -1004,6 +1004,36 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Close Account Integr",
+							"id": "76b178c1-66c8-4f99-afe3-d44ef8e19478",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/close",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_Integration}}accounts"
+									],
+									"path": [
+										":cmsNumber",
+										"close"
+									],
+									"variable": [
+										{
+											"key": "cmsNumber",
+											"value": "",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "a631a87f-a153-4aa2-80fb-bef0e6eee610"
@@ -2461,6 +2491,19 @@
 										}
 									]
 								}
+							},
+							"response": []
+						},
+						{
+							"name": "Close Account LL",
+							"id": "dfe0e993-4ac2-4ac3-bc96-4efcbbbf8530",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": ""
 							},
 							"response": []
 						}
