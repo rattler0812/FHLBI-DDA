@@ -1096,11 +1096,21 @@
 											"  \"isSuccess\": true\r",
 											"}\r",
 											"\r",
+											"/*\r",
+											"    - 404 error is presented if the account number does not exist\r",
+											"    - 20000 is presented when the closure works properly.  You \r",
+											"*/\r",
+											"\r",
+											"\r",
 											"\r",
 											"basicTestScripts.testRequestSuccess(pm.response);\r",
 											"basicTestScripts.testAPISuccess(pm.response);\r",
 											"basicTestScripts.testResponseTime(1000,pm.response);\r",
-											"basicTestScripts.testSchemaProper(schema,pm.response,1);"
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
+											"\r",
+											"\r",
+											"\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {
@@ -1120,7 +1130,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/close?accountType=CMS",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/close?accountType=CMS&closeBothAccounts=true",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_Integration}}accounts"
@@ -1132,7 +1142,13 @@
 									"query": [
 										{
 											"key": "accountType",
-											"value": "CMS"
+											"value": "CMS",
+											"description": "CMS/TIM"
+										},
+										{
+											"key": "closeBothAccounts",
+											"value": "true",
+											"description": "true/false"
 										}
 									],
 									"variable": [
