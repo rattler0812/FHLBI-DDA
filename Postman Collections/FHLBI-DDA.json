@@ -1114,7 +1114,17 @@
 											"\r",
 											"let nbrCmsNumber = pm.request.url.query.get(\":cmsNumber\")\r",
 											"\r",
-											"pm.execution.runRequest()\r",
+											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", {\r",
+											"    // Optional: override variables or configuration\r",
+											"}, function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.error(err);\r",
+											"    } else {\r",
+											"        // Handle the response if needed\r",
+											"        console.log(res.json());\r",
+											"    }\r",
+											"});\r",
+											"\r",
 											"\r",
 											"\r",
 											"\r",
@@ -1128,7 +1138,18 @@
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
 											}
 										},
-										"requests": {}
+										"requests": {
+											"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0": {
+												"workspace": "d6470c62-919f-4526-b628-3273c285cccd",
+												"collection": "21176821-435d9a13-49ee-476b-a5ea-e0a30c3b963a",
+												"location": [
+													"DDA",
+													"Integration",
+													"Account",
+													"CMS Account Search"
+												]
+											}
+										}
 									}
 								}
 							],
