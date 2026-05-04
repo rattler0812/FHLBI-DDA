@@ -723,13 +723,13 @@
 											"console.log(\"Running CMSAccountSearch API Request --> Manually Provided Parameters\")\r",
 											"//let sSearchTypeData = pm.iterationData.get(\"sSearchType\")\r",
 											"\r",
-											"\r",
-											"if (bIntegratedExecution)\r",
+											"/*\r",
+											"if (bIntegratedExecution || bIntegratedExecution !== undefined)\r",
 											"{\r",
 											"    // This code looks for the global parameters to replace the hard-entered paramter values in the event this request is run in a pre-request or post-response of another API request.\r",
 											"    pm.request.url.query.repopulate(\"searchType\");\r",
 											"};\r",
-											"\r",
+											"*/\r",
 											"\r",
 											"\r",
 											""
@@ -755,7 +755,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=CmsNumber&searchValue=&pageSize=25&pageIndex=1&accountStatus=&accountTitleCode=",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=CmsNumber&searchValue=7779&pageSize=25&pageIndex=1&accountStatus=&accountTitleCode=",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_Integration}}accounts"
@@ -771,7 +771,7 @@
 										},
 										{
 											"key": "searchValue",
-											"value": "",
+											"value": "7779",
 											"description": "Data found in the Search box in the UI"
 										},
 										{
