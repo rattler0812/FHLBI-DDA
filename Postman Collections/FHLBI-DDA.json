@@ -2485,6 +2485,61 @@
 						},
 						{
 							"name": "Close Account LL",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "7c8be252-ab65-4687-aac0-af55d996e5dc",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"const schema = {\r",
+											"    //Schema\r",
+											"}\r",
+											"\r",
+											"//basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "422e1076-a2ab-4f3a-90be-1e28fdf9249e",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"const schema = {\r",
+											"    //Schema\r",
+											"}\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(1000,pm.response);\r",
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);"
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								}
+							],
 							"id": "dfe0e993-4ac2-4ac3-bc96-4efcbbbf8530",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
