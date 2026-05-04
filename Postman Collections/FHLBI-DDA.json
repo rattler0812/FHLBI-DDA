@@ -1114,7 +1114,7 @@
 											"\r",
 											"let nbrCmsNumber = pm.request.url.query.get(\":cmsNumber\")\r",
 											"\r",
-											"\r",
+											"pm.execution.runRequest()\r",
 											"\r",
 											"\r",
 											"\r",
