@@ -1128,7 +1128,7 @@
 											"        console.error(err);\r",
 											"    } else {\r",
 											"        // Handle the response if needed\r",
-											"        let respBodyAccountSearch = res.json();\r",
+											"        respBodyAccountSearch = res.json();\r",
 											"    }\r",
 											"});\r",
 											"\r",
