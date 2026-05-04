@@ -755,7 +755,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=CmsNumber&searchValue=7779&pageSize=&pageIndex=&accountStatus=&accountTitleCode=",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=CmsNumber&searchValue=&pageSize=25&pageIndex=1&accountStatus=&accountTitleCode=",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_Integration}}accounts"
@@ -771,16 +771,16 @@
 										},
 										{
 											"key": "searchValue",
-											"value": "7779",
+											"value": "",
 											"description": "Data found in the Search box in the UI"
 										},
 										{
 											"key": "pageSize",
-											"value": ""
+											"value": "25"
 										},
 										{
 											"key": "pageIndex",
-											"value": ""
+											"value": "1"
 										},
 										{
 											"key": "accountStatus",
@@ -1261,8 +1261,7 @@
 											"\r",
 											"const options = {\r",
 											"    variables: {\r",
-											"        \"user_id\": \"12345\",\r",
-											"        \"api_key\": \"new_secret_key\"\r",
+											"        \"searchValue\": \"7779\"\r",
 											"    }\r",
 											"};\r",
 											"\r",
