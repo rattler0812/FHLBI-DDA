@@ -1160,6 +1160,21 @@
 											"//basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
 											"\r",
 											"\r",
+											"const options = {\r",
+											"    variables: {\r",
+											"        \"searchValue\": \"7779\"\r",
+											"    }\r",
+											"};\r",
+											"\r",
+											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", options, function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.error(err);\r",
+											"    } else {\r",
+											"        // Handle the response if needed\r",
+											"        respBodyAccountSearch = res.json();\r",
+											"        console.log(\"Embedded CMS Account Search request returned the following response: \", respBodyAccountSearch);\r",
+											"    }\r",
+											"});\r",
 											"\r",
 											"\r",
 											""
@@ -1170,7 +1185,18 @@
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
 											}
 										},
-										"requests": {}
+										"requests": {
+											"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0": {
+												"workspace": "d6470c62-919f-4526-b628-3273c285cccd",
+												"collection": "21176821-435d9a13-49ee-476b-a5ea-e0a30c3b963a",
+												"location": [
+													"DDA",
+													"Integration",
+													"Account",
+													"CMS Account Search"
+												]
+											}
+										}
 									}
 								},
 								{
@@ -1249,7 +1275,7 @@
 											"\r",
 											"// GET /accounts (\"GET CMS Account Search\") with the account number will return in the rowCount how many exist with that account number.  This request can be executed to get the account number return count to ensure there are two accounts to be deleted if the closeBothAccounts is marked as true.  If two accounts don't exist, then the expectation would be that a EC-2 and SC-404 is returned\r",
 											"\r",
-											"\r",
+											"/*\r",
 											"let nbrCmsNumber = pm.request.url.query.get(\":cmsNumber\")\r",
 											"let respBodyAccountSearch = \"\";\r",
 											"let acctCMSActive = false;\r",
@@ -1265,10 +1291,7 @@
 											"    }\r",
 											"};\r",
 											"\r",
-											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", {\r",
-											"    // Optional: override variables or configuration\r",
-											"    // options\r",
-											"}, function (err, res) {\r",
+											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", options, function (err, res) {\r",
 											"    if (err) {\r",
 											"        console.error(err);\r",
 											"    } else {\r",
@@ -1276,8 +1299,7 @@
 											"        respBodyAccountSearch = res.json();\r",
 											"    }\r",
 											"});\r",
-											"\r",
-											"pm.collectionVariables.set(\"reuseRequest\", \"false\");\r",
+											"*/\r",
 											"\r",
 											"\r",
 											"\r",
