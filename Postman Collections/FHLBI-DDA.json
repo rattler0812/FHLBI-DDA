@@ -1113,7 +1113,7 @@
 											"\r",
 											"\r",
 											"let nbrCmsNumber = pm.request.url.query.get(\":cmsNumber\")\r",
-											"\r",
+											"pm.collectionVariables.set(\"passCmsNumber\")\r",
 											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", {\r",
 											"    // Optional: override variables or configuration\r",
 											"}, function (err, res) {\r",
@@ -3843,7 +3843,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "c3419da7-ae43-4bcf-b949-329e5dacacb0",
+				"id": "b43e91a8-568a-45d0-b058-4c949eb3c7f2",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -3855,7 +3855,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "aaba6c8b-302b-4d7b-ab88-1b583dbf85e8",
+				"id": "0689d6a3-09fe-4e10-94fc-10bf5cffae38",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -3900,6 +3900,10 @@
 		},
 		{
 			"key": "tokenDDA",
+			"value": ""
+		},
+		{
+			"key": "reuseRequest",
 			"value": ""
 		}
 	]
