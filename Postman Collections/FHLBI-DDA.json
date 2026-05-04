@@ -1019,11 +1019,9 @@
 											"    //Schema\r",
 											"}\r",
 											"\r",
+											"//basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
 											"\r",
-											"basicTestScripts.testRequestSuccess(pm.response);\r",
-											"basicTestScripts.testAPISuccess(pm.response);\r",
-											"basicTestScripts.testResponseTime(1000,pm.response);\r",
-											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
+											"\r",
 											"\r",
 											"\r",
 											""
@@ -1049,8 +1047,10 @@
 											"}\r",
 											"\r",
 											"\r",
-											"basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
-											""
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(1000,pm.response);\r",
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);"
 										],
 										"type": "text/javascript",
 										"packages": {
@@ -2506,21 +2506,17 @@
 									"query": [
 										{
 											"key": "accountType",
-											"value": "",
-											"type": "text",
-											"id": 0
+											"value": ""
 										},
 										{
 											"key": "closeBothAccounts",
-											"value": "",
-											"type": "text",
-											"id": 1
+											"value": ""
 										}
 									],
 									"variable": [
 										{
 											"key": "cmsNumber",
-											"value": "",
+											"value": "77719995",
 											"type": "string"
 										}
 									]
