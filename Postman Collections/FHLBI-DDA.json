@@ -1112,6 +1112,7 @@
 											"// GET /accounts with the account number will return in the rowCount how many exist with that account number.  This request can be executed to get the account number return count to ensure there are two accounts to be deleted if the closeBothAccounts is marked as true.  If two accounts don't exist, then the expectation would be that a EC-2 and SC-404 is returned\r",
 											"\r",
 											"\r",
+											"let nbrCmsNumber = pm.request.url.query.get(\":cmsNumber\")\r",
 											"\r",
 											"\r",
 											"\r",
