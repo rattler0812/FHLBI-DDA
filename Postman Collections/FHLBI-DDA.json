@@ -1113,7 +1113,10 @@
 											"\r",
 											"\r",
 											"let nbrCmsNumber = pm.request.url.query.get(\":cmsNumber\")\r",
-											"pm.collectionVariables.set(\"passCmsNumber\")\r",
+											"let respBodyAccountSearch = \"\"\r",
+											"pm.collectionVariables.set(\"passCmsNumber\", nbrCmsNumber);\r",
+											"pm.collectionVariables.set(\"reuseRequest\", \"true\");\r",
+											"\r",
 											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", {\r",
 											"    // Optional: override variables or configuration\r",
 											"}, function (err, res) {\r",
@@ -1125,6 +1128,7 @@
 											"    }\r",
 											"});\r",
 											"\r",
+											"pm.collectionVariables.set(\"reuseRequest\", \"false\");\r",
 											"\r",
 											"\r",
 											"\r",
@@ -3843,7 +3847,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "b43e91a8-568a-45d0-b058-4c949eb3c7f2",
+				"id": "56591be6-bbca-4e1c-ba21-7746148d7868",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -3855,7 +3859,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "0689d6a3-09fe-4e10-94fc-10bf5cffae38",
+				"id": "14f72fd7-724e-46ef-a0b9-cc9d1fcbc2fd",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
