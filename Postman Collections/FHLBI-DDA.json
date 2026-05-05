@@ -2830,7 +2830,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/close?accountType=CMS&closeBothAccounts=false",
+									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/close?accountType=CMS&closeBothAccounts=true",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_LL}}dda"
@@ -2848,14 +2848,14 @@
 										},
 										{
 											"key": "closeBothAccounts",
-											"value": "false",
+											"value": "true",
 											"description": "true / false"
 										}
 									],
 									"variable": [
 										{
 											"key": "cmsNumber",
-											"value": "77719995",
+											"value": "10239997",
 											"type": "string"
 										}
 									]
