@@ -1161,6 +1161,7 @@
 											"\r",
 											"//basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
 											"\r",
+											"let respBodyAccountSearch = \"\";\r",
 											"\r",
 											"const options = {\r",
 											"    variables: {\r",
@@ -1179,6 +1180,8 @@
 											"        console.log(\"Embedded CMS Account Search request returned the following response: \", respBodyAccountSearch);\r",
 											"    }\r",
 											"});\r",
+											"\r",
+											"console.log(\"Embedded request response was: \" , respBodyAccountSearch);\r",
 											"\r",
 											"console.log(\"Integration Close Account Pre-Request scripts have completed\");\r",
 											""
