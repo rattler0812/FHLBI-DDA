@@ -2860,6 +2860,47 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "DDA Account Action Validations",
+							"id": "2f5867c3-f14d-4ea6-9658-7922542d5a28",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_Integration}}dda/accounts/:cmsNumber/action-validations?accountType=CMS&includeAccountWithSharedCmsNumber=false",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_Integration}}dda"
+									],
+									"path": [
+										"accounts",
+										":cmsNumber",
+										"action-validations"
+									],
+									"query": [
+										{
+											"key": "accountType",
+											"value": "CMS"
+										},
+										{
+											"key": "includeAccountWithSharedCmsNumber",
+											"value": "false"
+										}
+									],
+									"variable": [
+										{
+											"key": "cmsNumber",
+											"value": "77719995",
+											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "5b0b5441-68b9-475c-887c-ac041bf9aef5"
