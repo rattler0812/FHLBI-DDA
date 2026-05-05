@@ -1169,7 +1169,7 @@
 											"};\r",
 											"\r",
 											"console.log(\"Running Embedded Reqeust\");\r",
-											"pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", options, function (err, res) {\r",
+											"await pm.execution.runRequest(\"21176821-28bd6c20-d050-471d-aa32-606e6d8bc9f0\", options, function (err, res) {\r",
 											"    console.log(\"Checking embedded request results\");\r",
 											"    if (err) {\r",
 											"        console.error(\"Request Errored Out: \", err);\r",
