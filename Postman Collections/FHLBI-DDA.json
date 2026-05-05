@@ -2830,7 +2830,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/close?accountType=&closeBothAccounts=",
+									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/close?accountType=CMS&closeBothAccounts=false",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_LL}}dda"
@@ -2843,11 +2843,13 @@
 									"query": [
 										{
 											"key": "accountType",
-											"value": ""
+											"value": "CMS",
+											"description": "CMS / TIM"
 										},
 										{
 											"key": "closeBothAccounts",
-											"value": ""
+											"value": "false",
+											"description": "true / false"
 										}
 									],
 									"variable": [
