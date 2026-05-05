@@ -2863,6 +2863,64 @@
 						},
 						{
 							"name": "DDA Account Action Validations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d03c8c8e-3ac8-4457-951d-6c2ca70eaa05",
+										"exec": [
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "fa706cf6-562d-4a45-94b3-963953601b5b",
+										"exec": [
+											"console.log(\"Starting Account Validations API Test Scripts\");\r",
+											"\r",
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								}
+							],
 							"id": "2f5867c3-f14d-4ea6-9658-7922542d5a28",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -2871,10 +2929,10 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}dda/accounts/:cmsNumber/action-validations?accountType=CMS&includeAccountWithSharedCmsNumber=false",
+									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/action-validations?accountType=TIM&actionType=Close&includeAccountWithSharedCmsNumber=false",
 									"protocol": "https",
 									"host": [
-										"{{environment}}{{baseURL_Integration}}dda"
+										"{{environment}}{{baseURL_LL}}dda"
 									],
 									"path": [
 										"accounts",
@@ -2884,7 +2942,11 @@
 									"query": [
 										{
 											"key": "accountType",
-											"value": "CMS"
+											"value": "TIM"
+										},
+										{
+											"key": "actionType",
+											"value": "Close"
 										},
 										{
 											"key": "includeAccountWithSharedCmsNumber",
