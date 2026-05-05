@@ -2894,11 +2894,23 @@
 											"console.log(\"Starting Account Validations API Test Scripts\");\r",
 											"\r",
 											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"const standardDataArrays = pm.require('@ilab44/standard_data_arrays');\r",
 											"\r",
+											"// No pre-request schema variable since this is a GET\r",
 											"\r",
+											"/*\r",
 											"\r",
+											"Sample Data\r",
 											"\r",
-											"\r",
+											"Primary-only scenarios (includeAccountWithSharedCmsNumber = false)\r",
+											"Case ID\tPurpose\tincludeShared\tCMS Number\tAcct Type\r",
+											"P-01\tHappy path (all pass)\tfalse\t10019997\tCMS\r",
+											"P-02\tAccount missing\tfalse\t00000000\tCMS\r",
+											"P-03\tPending journals exist\tfalse\t10359990\tCMS\r",
+											"P-04\tReferencing accounts exist\tfalse\t14919996\tCMS\r",
+											"P-05\tNon-zero balance only\tfalse\t77059990\tCMS\r",
+											"P-09\tAll three failures\tfalse\t70389997\tCMS\r",
+											"*/\r",
 											"\r",
 											"\r",
 											"\r",
@@ -2915,6 +2927,9 @@
 										"packages": {
 											"@ilab44/basic_test_scripts": {
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											},
+											"@ilab44/standard_data_arrays": {
+												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
 											}
 										},
 										"requests": {}
@@ -2926,7 +2941,7 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "PUT",
+								"method": "GET",
 								"header": [],
 								"url": {
 									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber/action-validations?accountType=TIM&actionType=Close&includeAccountWithSharedCmsNumber=false",
