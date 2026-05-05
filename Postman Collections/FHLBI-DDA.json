@@ -2869,8 +2869,16 @@
 									"script": {
 										"id": "d03c8c8e-3ac8-4457-951d-6c2ca70eaa05",
 										"exec": [
+											"const standardDataArrays = pm.require('@ilab44/standard_data_arrays');\r",
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
 											"\r",
 											"\r",
+											"const schema = {\r",
+											"    //Code\r",
+											"};\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
 											"\r",
 											"\r",
 											"\r",
@@ -2882,7 +2890,14 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {},
+										"packages": {
+											"@ilab44/standard_data_arrays": {
+												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
+											},
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
 										"requests": {}
 									}
 								},
@@ -2928,7 +2943,7 @@
 											"pm.request.url.query.upsert({key: 'accountType', value: pm.variables.get(\"accountType\")});\r",
 											"pm.request.url.query.upsert({key: 'includeAccountWithSharedCmsNumber', value: pm.variables.get(\"inclShared\")});\r",
 											"\r",
-											"\r",
+											"pm.variables.set(\"expFailure\",dataValidationCheck.expFailure);\r",
 											""
 										],
 										"type": "text/javascript",
