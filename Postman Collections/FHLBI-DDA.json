@@ -1160,7 +1160,7 @@
 											"}\r",
 											"\r",
 											"//basicTestScripts.testSchemaProper(schema,pm.request,0);\r",
-											"\r",
+											"/*\r",
 											"let respBodyAccountSearch = \"\";\r",
 											"\r",
 											"const options = {\r",
@@ -1184,6 +1184,9 @@
 											"console.log(\"Embedded request response was: \" , respBodyAccountSearch);\r",
 											"\r",
 											"console.log(\"Integration Close Account Pre-Request scripts have completed\");\r",
+											"*/\r",
+											"\r",
+											"\r",
 											""
 										],
 										"type": "text/javascript",
