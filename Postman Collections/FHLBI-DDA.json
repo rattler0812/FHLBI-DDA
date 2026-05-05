@@ -2926,7 +2926,7 @@
 											"pm.variables.set(\"accountType\",dataValidationCheck.acctType);\r",
 											"\r",
 											"pm.request.url.query.upsert({key: 'accountType', value: pm.variables.get(\"accountType\")});\r",
-											"\r",
+											"pm.request.url.query.upsert({key: 'includeAccountWithSharedCmsNumber', value: pm.variables.get(\"inclShared\")});\r",
 											"\r",
 											"\r",
 											""
@@ -2979,7 +2979,8 @@
 									"variable": [
 										{
 											"key": "cmsNumber",
-											"value": "77719995",
+											"value": "{{cmsNum}}",
+											"description": "77719995",
 											"type": "string"
 										}
 									]
