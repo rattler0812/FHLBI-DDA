@@ -2899,6 +2899,7 @@
 											"            pm.expect(pm.response.code, \"Expected to Fail but passed\").to.be.oneOf(cdFail);\r",
 											"            break;\r",
 											"        default:\r",
+											"            pm.expect(true).to.be.false;\r",
 											"            console.error(\"Expected Result check failed. Expected 'Pass' or 'Fail' but got: \", pm.response.code);\r",
 											"    };\r",
 											"});\r",
