@@ -1412,16 +1412,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://sbx.dda-integration-api.fhlbi.com/accounts/:cmsNumber/validations/0?accountType=CMS&includeAccountWithSharedCmsNumber=false",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/validations/0?accountType=CMS&includeAccountWithSharedCmsNumber=false&actionType=0",
 									"protocol": "https",
 									"host": [
-										"sbx",
-										"dda-integration-api",
-										"fhlbi",
-										"com"
+										"{{environment}}{{baseURL_Integration}}accounts"
 									],
 									"path": [
-										"accounts",
 										":cmsNumber",
 										"validations",
 										"0"
@@ -1434,6 +1430,11 @@
 										{
 											"key": "includeAccountWithSharedCmsNumber",
 											"value": "false"
+										},
+										{
+											"key": "actionType",
+											"value": "0",
+											"description": "0 - Close; 1 - Delete; 2 - Reopen; 3 - Merge"
 										}
 									],
 									"variable": [
