@@ -755,7 +755,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=CmsNumber&searchValue=7779&pageSize=25&pageIndex=1&accountStatus=&accountTitleCode=",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=BpName&searchValue=Credit&pageSize=25&pageIndex=1&accountStatus=Active&accountTitleCode=",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_Integration}}accounts"
@@ -766,12 +766,12 @@
 									"query": [
 										{
 											"key": "searchType",
-											"value": "CmsNumber",
-											"description": "Three types: BP ID, CMS Number, BP Name"
+											"value": "BpName",
+											"description": "Three types: BpId, CmsNumber, BpName"
 										},
 										{
 											"key": "searchValue",
-											"value": "7779",
+											"value": "Credit",
 											"description": "Data found in the Search box in the UI"
 										},
 										{
@@ -784,7 +784,8 @@
 										},
 										{
 											"key": "accountStatus",
-											"value": ""
+											"value": "Active",
+											"description": "Active / Closed"
 										},
 										{
 											"key": "accountTitleCode",
