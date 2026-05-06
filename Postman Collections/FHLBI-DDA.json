@@ -1077,7 +1077,7 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber?accountType=CMS",
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber?accountType=TIM",
 									"protocol": "https",
 									"host": [
 										"{{environment}}{{baseURL_Integration}}accounts"
@@ -1088,13 +1088,13 @@
 									"query": [
 										{
 											"key": "accountType",
-											"value": "CMS"
+											"value": "TIM"
 										}
 									],
 									"variable": [
 										{
 											"key": "cmsNumber",
-											"value": "44059994"
+											"value": "78059999"
 										}
 									]
 								}
