@@ -1010,29 +1010,129 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"type": "text/javascript",
+										"id": "396ecafc-074f-4765-af3f-5119d1273b3d",
 										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r\n\r\n\r\nconsole.log(\"Executing the DDA Edit API for iteration #\" + pm.iterationData.get(\"testID\"))\r\n//console.log(\"Checking validation of iteration data.\")\r\n\r\n/*\r\n//console.log(\"If-Then block\")\r\nif (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw)\r\n{\r\nconst requestBodyJson = JSON.parse(pm.request.body.raw);\r\nconsole.log(\"Request Body JSON:\", requestBodyJson);\r\npm.collectionVariables.set(\"passCmsNumber\",requestBodyJson.cmsNumber);\r\nconsole.log(\"Path Variable for the CMS Number is: \" + pm.collectionVariables.get(\"passCmsNumber\"));\r\n} else \r\n{\r\n    console.log(\"Request Body of Test #\" + pm.iterationData.get(\"testID\") + \" is not JSON\")\r\n    pm.execution.skipRequest();\r\n};\r\n*/\r\n\r\n\r\n\r\n\r\n"
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"\r",
+											"console.log(\"Executing the DDA Edit API for iteration #\" + pm.iterationData.get(\"testID\"))\r",
+											"//console.log(\"Checking validation of iteration data.\")\r",
+											"\r",
+											"/*\r",
+											"//console.log(\"If-Then block\")\r",
+											"if (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw)\r",
+											"{\r",
+											"const requestBodyJson = JSON.parse(pm.request.body.raw);\r",
+											"console.log(\"Request Body JSON:\", requestBodyJson);\r",
+											"pm.collectionVariables.set(\"passCmsNumber\",requestBodyJson.cmsNumber);\r",
+											"console.log(\"Path Variable for the CMS Number is: \" + pm.collectionVariables.get(\"passCmsNumber\"));\r",
+											"} else \r",
+											"{\r",
+											"    console.log(\"Request Body of Test #\" + pm.iterationData.get(\"testID\") + \" is not JSON\")\r",
+											"    pm.execution.skipRequest();\r",
+											"};\r",
+											"*/\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
 										],
+										"type": "text/javascript",
 										"packages": {
 											"@ilab44/basic_test_scripts": {
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
 											}
-										}
+										},
+										"requests": {}
 									}
 								},
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
+										"id": "afd0ef67-fdd0-410d-a238-e446585f8225",
 										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r\n//console.log(\"basicTestScripts module: \", basicTestScripts)\r\n\r\n\r\nconsole.log(\"Execute the post-request test scripts for CMS Account Display\")\r\n\r\nconst schema =\r\n{\r\n    \"data\": {\r\n        \"cmsNumber\": 70389997,\r\n        \"type\": \"CMS\",\r\n        \"status\": \"A\",\r\n        \"title\": null,\r\n        \"titleCode\": 22,\r\n        \"isFreeAccount\": false,\r\n        \"payInterestToCmsNumber\": 70389997,\r\n        \"payInterestToType\": \"CMS\",\r\n        \"chargeFeesToCmsNumber\": 70389997,\r\n        \"chargeFeesToType\": \"CMS\",\r\n        \"interestRateId\": \"D0CMS\",\r\n        \"indexTypeModel\": null,\r\n        \"balance\": null,\r\n        \"legalDescription\": null,\r\n        \"businessPartner\": null,\r\n        \"cmsRelationship\": null\r\n    },\r\n    \"errorCode\": 20000,\r\n    \"errorDetail\": null,\r\n    \"isSuccess\": true\r\n}\r\n\r\n\r\n//console.log(pm.response.json())\r\n\r\n\r\n//Standard Tests\r\nbasicTestScripts.testRequestSuccess(pm.response);\r\nbasicTestScripts.testAPISuccess(pm.response);\r\nbasicTestScripts.testResponseTime(Number(1000),pm.response);\r\nbasicTestScripts.testSchemaProper(schema,pm.response,1);\r\n\r\n\r\n//Request Tests\r\n(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Request Test #1 - Validation of Edited Fields Values on Good Response\", function()\r\n{\r\n    //parse the JSON response and test the properties for the expected codes/responses\r\n    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.lessThanOrEqual(99999999);\r\n    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.lessThanOrEqual(99999999);\r\n    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r\n    pm.expect(pm.response.json().data.chargeFeesToType.length).to.be.lessThanOrEqual(4);\r\n    pm.expect(pm.response.json().data.titleCode).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.titleCode).to.be.lessThanOrEqual(99);\r\n    pm.expect(pm.response.json().data.interestRateId.length).to.be.lessThanOrEqual(5);\r\n});\r\n\r\nlet bDataStatic = 0\r\nif (pm.response.json().errorCode === 20000 && pm.collectionVariables.get(\"dataStatic\") === true)\r\n{\r\n    bDataStatic = 1;\r\n};\r\n\r\n(bDataStatic ? pm.test : pm.test.skip)(\"Request Test #2 - Confirm Expected Data Matches Actual Returned Data\", function()\r\n{\r\n    pm.expect(pm.response.json().data.titleCode).to.eql(pm.data.titleCode);\r\n});\r\n\r\n//pm.collectionVariables.set(\"passCmsNumber\",\"\");\r\n\r\n\r\n\r\n"
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"//console.log(\"basicTestScripts module: \", basicTestScripts)\r",
+											"\r",
+											"\r",
+											"console.log(\"Execute the post-request test scripts for CMS Account Display\")\r",
+											"\r",
+											"const schema =\r",
+											"{\r",
+											"    \"data\": {\r",
+											"        \"cmsNumber\": 70389997,\r",
+											"        \"type\": \"CMS\",\r",
+											"        \"status\": \"A\",\r",
+											"        \"title\": null,\r",
+											"        \"titleCode\": 22,\r",
+											"        \"isFreeAccount\": false,\r",
+											"        \"payInterestToCmsNumber\": 70389997,\r",
+											"        \"payInterestToType\": \"CMS\",\r",
+											"        \"chargeFeesToCmsNumber\": 70389997,\r",
+											"        \"chargeFeesToType\": \"CMS\",\r",
+											"        \"interestRateId\": \"D0CMS\",\r",
+											"        \"indexTypeModel\": null,\r",
+											"        \"balance\": null,\r",
+											"        \"legalDescription\": null,\r",
+											"        \"businessPartner\": null,\r",
+											"        \"cmsRelationship\": null\r",
+											"    },\r",
+											"    \"errorCode\": 20000,\r",
+											"    \"errorDetail\": null,\r",
+											"    \"isSuccess\": true\r",
+											"}\r",
+											"\r",
+											"\r",
+											"//console.log(pm.response.json())\r",
+											"\r",
+											"\r",
+											"//Standard Tests\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(Number(1000),pm.response);\r",
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
+											"\r",
+											"\r",
+											"//Request Tests\r",
+											"(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Request Test #1 - Validation of Edited Fields Values on Good Response\", function()\r",
+											"{\r",
+											"    //parse the JSON response and test the properties for the expected codes/responses\r",
+											"    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.greaterThanOrEqual(0);\r",
+											"    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.lessThanOrEqual(99999999);\r",
+											"    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.greaterThanOrEqual(0);\r",
+											"    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.lessThanOrEqual(99999999);\r",
+											"    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r",
+											"    pm.expect(pm.response.json().data.chargeFeesToType.length).to.be.lessThanOrEqual(4);\r",
+											"    pm.expect(pm.response.json().data.titleCode).to.be.greaterThanOrEqual(0);\r",
+											"    pm.expect(pm.response.json().data.titleCode).to.be.lessThanOrEqual(99);\r",
+											"    pm.expect(pm.response.json().data.interestRateId.length).to.be.lessThanOrEqual(5);\r",
+											"});\r",
+											"\r",
+											"let bDataStatic = 0\r",
+											"if (pm.response.json().errorCode === 20000 && pm.collectionVariables.get(\"dataStatic\") === true)\r",
+											"{\r",
+											"    bDataStatic = 1;\r",
+											"};\r",
+											"\r",
+											"(bDataStatic ? pm.test : pm.test.skip)(\"Request Test #2 - Confirm Expected Data Matches Actual Returned Data\", function()\r",
+											"{\r",
+											"    pm.expect(pm.response.json().data.titleCode).to.eql(pm.data.titleCode);\r",
+											"});\r",
+											"\r",
+											"//pm.collectionVariables.set(\"passCmsNumber\",\"\");\r",
+											"\r",
+											"\r",
+											"\r",
+											""
 										],
+										"type": "text/javascript",
 										"packages": {
 											"@ilab44/basic_test_scripts": {
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
 											}
-										}
+										},
+										"requests": {}
 									}
 								}
 							],
@@ -1069,9 +1169,8 @@
 									],
 									"variable": [
 										{
-											"id": "36287d56-0ad0-4723-b32b-248c4fc56846",
 											"key": "cmsNumber",
-											"value": "78859995"
+											"value": "78059999"
 										}
 									]
 								}
