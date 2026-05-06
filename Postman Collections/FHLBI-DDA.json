@@ -504,82 +504,6 @@
 			"name": "Integration",
 			"item": [
 				{
-					"name": "BusinessPartnerDashboard",
-					"item": [
-						{
-							"name": "BP Aggregated Amounts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r\nconst basicTestArrays = pm.require('@ilab44/standard_data_arrays');\r\n\r\nconst schema = \r\n{\r\n    \"data\": \r\n    {\r\n        \"bpid\": 0,\r\n        \"wiresAvailableBalance\": 0,\r\n        \"openingBalance\": 0,\r\n        \"pendingJournalBalance\": 0,\r\n        \"incomingWiresBalance\": 0,\r\n        \"outgoingWiresBalance\": 0,\r\n        \"lineOfCreditBalance\": 0,\r\n        \"actualActualBalance\": 0,\r\n        \"pledgeTimeBalance\": 0\r\n    },\r\n    \"errorCode\": 1,\r\n    \"errorDetail\": \r\n    {\r\n        \"statusCode\": 0,\r\n        \"path\": \"string\",\r\n        \"errorMessage\": \"string\",\r\n        \"stackTrace\": \"string\"\r\n    },\r\n    \"isSuccess\": true\r\n};\r\n\r\n/*\r\nThis item is Done when:\r\n- Dashboard shows an overall account total for all accounts associated with a particular BPID.\r\n    -- Available balance  minus title 23 and 24\r\n    -- Begin of day balance (sum of all account BOD balances minus title 23 and 24)\r\n    -- Includes all pending DDA journals\r\n    -- Incoming Wires = 0\r\n    -- Outgoing Wires = 0\r\n    -- Line of credit = 0\r\n    -- Actual/Actual (23)\r\n        --- Should include opening balance(s) and pending transactions.\r\n    -- Pledge Time Accounts (24)\r\n        --- Should include opening balance(s) and pending transactions.\r\n*/\r\n\r\n\r\n//console.info(\"Getting data array\");\r\nlet arrayBpIdList = basicTestArrays.cmsBpIdList();\r\n//console.info(\"Getting random selection\");\r\nlet xfrBpId = basicTestArrays.randSelectElement(arrayBpIdList);\r\n//console.info(\"Randomly selected BP ID is: \" + xfrBpId);\r\n//console.info(\"Resetting paramater\");\r\npm.variables.set(\"xfrBpId\",xfrBpId);\r\n//pm.request.url.query.upsert({ key: \":bpId\", value: \"{{xfrBpId}}\" });\r\n\r\n\r\nbasicTestScripts.testRequestSuccess(pm.response);\r\nbasicTestScripts.testAPISuccess(pm.response);\r\nbasicTestScripts.testResponseTime(Number(1000),pm.response);\r\nbasicTestScripts.testSchemaProper(schema,pm.response,1);\r\n\r\n\r\n\r\nconsole.info(\"Setting common Response Body data cluster for Request Tests\");\r\nlet objResponseBody = pm.response.json();\r\n\r\n\r\nconsole.info (\"Request Test #1 - Disabled\")\r\n/* Not currently implemented\r\npm.test(\"Request Test #1 - Confirming all returned entries are Pending\", function()\r\n{\r\n    console.log(\"Running Request Test #1 - All Returned are Pending Journals\");\r\n    if (!Array.isArray(pm.resposne.json().data))\r\n    {\r\n        pm.expect.fail(\"Data returned was not an array\");\r\n    } else if (pm.response.json().data !== null)\r\n    {\r\n        console.info(\"Pending Journals array has data\");\r\n        let pendingJournalCount = 0;\r\n        pm.response.json().data.forEach((entry,index) =>\r\n        {\r\n            if (entry.journalStatus === 'pending')\r\n            {\r\n                pendingJournalCount += 1;\r\n            };\r\n        });\r\n    } else\r\n    {\r\n        pm.expect.fail(\"No data available\");\r\n    };\r\n\r\n    pm.expect(pendingJournalCount, \"Pending Journal Count did not match the data length of pending journal entries\").to.be.eql(pm.resopnse.json().data.length);\r\n});\r\n*/\r\n\r\n\r\nif (pm.response.code === 200 && pm.response.json().errorCode === 20000)\r\n{\r\n    console.info(\"Temporary Tests for currently deployed functionality of successful runs\");\r\n    console.log(\"Temporary Request Test #1\");\r\n    ((objResponseBody.errorCode === 20000 && objResponseBody.isSuccess === true && objResponseBody.data !== null) ? pm.test : pm.skip)(\"Temporary Request Test #1 - Default Values for Wire Accounts Returning Properly\", function()\r\n    {\r\n        let objDataBody = objResponseBody.data\r\n        pm.expect(objDataBody.incomingWiresBalance).to.be.eql(0);\r\n        pm.expect(objDataBody.outgoingWiresBalance).to.be.eql(0);\r\n        pm.expect(objDataBody.lineOfCreditBalance).to.be.eql(0);\r\n    });\r\n\r\n\r\n    console.log(\"Temporary Request Test #2\");\r\n    ((objResponseBody.errorCode === 20000 && objResponseBody.isSuccess === true && objResponseBody.data !== null) ? pm.test : pm.skip)(\"Temporary Request Test #2 - Calculated Values Are Correct\", function()\r\n    {\r\n        let objDataBody = objResponseBody.data\r\n        let calcValue = 0\r\n        calcValue = objDataBody.openingBalance + objDataBody.pendingJournalBalance;\r\n        pm.expect(objDataBody.wiresAvailableBalance).to.be.eql(calcValue);\r\n    });\r\n};\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
-										],
-										"packages": {
-											"@ilab44/basic_test_scripts": {
-												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
-											},
-											"@ilab44/standard_data_arrays": {
-												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
-											}
-										}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r\nconst basicTestArrays = pm.require('@ilab44/standard_data_arrays');\r\n\r\n\r\n//console.info(\"Getting data array\");\r\nlet arrayBpIdList = basicTestArrays.cmsBpIdList();\r\n//console.info(\"Getting random selection\");\r\nlet xfrBpId = basicTestArrays.randSelectElement(arrayBpIdList);\r\n//console.info(\"Randomly selected BP ID is: \" + xfrBpId);\r\n//console.info(\"Resetting paramater\");\r\npm.variables.set(\"xfrBpId\",xfrBpId);\r\n//pm.request.url.query.upsert({ key: \":bpId\", value: \"{{xfrBpId}}\" });\r\n"
-										],
-										"packages": {
-											"@ilab44/basic_test_scripts": {
-												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
-											},
-											"@ilab44/standard_data_arrays": {
-												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
-											}
-										}
-									}
-								}
-							],
-							"id": "a34e9815-e679-45b3-9231-44786deb67a6",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://sbx.dda-integration-api.fhlbi.com/business-partner/aggregated-amounts/:bpId",
-									"protocol": "https",
-									"host": [
-										"sbx",
-										"dda-integration-api",
-										"fhlbi",
-										"com"
-									],
-									"path": [
-										"business-partner",
-										"aggregated-amounts",
-										":bpId"
-									],
-									"variable": [
-										{
-											"id": "f79196a0-20fe-4ae3-9470-55bfbeb493e3",
-											"key": "bpId",
-											"value": "{{xfrBpId}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"id": "573bfe18-ea06-4f16-8b21-44046edb3695"
-				},
-				{
 					"name": "Account",
 					"item": [
 						{
@@ -1170,7 +1094,7 @@
 									"variable": [
 										{
 											"key": "cmsNumber",
-											"value": "78059999"
+											"value": "44059994"
 										}
 									]
 								}
@@ -1660,6 +1584,223 @@
 						}
 					],
 					"id": "b1ce345a-b165-40a5-be88-0eecbea83fc0"
+				},
+				{
+					"name": "BusinessPartnerDashboard",
+					"item": [
+						{
+							"name": "BP Aggregated Amounts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "40265e01-b6a6-4fca-a70d-9dda3c5628f0",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"const basicTestArrays = pm.require('@ilab44/standard_data_arrays');\r",
+											"\r",
+											"const schema = \r",
+											"{\r",
+											"    \"data\": \r",
+											"    {\r",
+											"        \"bpid\": 0,\r",
+											"        \"wiresAvailableBalance\": 0,\r",
+											"        \"openingBalance\": 0,\r",
+											"        \"pendingJournalBalance\": 0,\r",
+											"        \"incomingWiresBalance\": 0,\r",
+											"        \"outgoingWiresBalance\": 0,\r",
+											"        \"lineOfCreditBalance\": 0,\r",
+											"        \"actualActualBalance\": 0,\r",
+											"        \"pledgeTimeBalance\": 0\r",
+											"    },\r",
+											"    \"errorCode\": 1,\r",
+											"    \"errorDetail\": \r",
+											"    {\r",
+											"        \"statusCode\": 0,\r",
+											"        \"path\": \"string\",\r",
+											"        \"errorMessage\": \"string\",\r",
+											"        \"stackTrace\": \"string\"\r",
+											"    },\r",
+											"    \"isSuccess\": true\r",
+											"};\r",
+											"\r",
+											"/*\r",
+											"This item is Done when:\r",
+											"- Dashboard shows an overall account total for all accounts associated with a particular BPID.\r",
+											"    -- Available balance  minus title 23 and 24\r",
+											"    -- Begin of day balance (sum of all account BOD balances minus title 23 and 24)\r",
+											"    -- Includes all pending DDA journals\r",
+											"    -- Incoming Wires = 0\r",
+											"    -- Outgoing Wires = 0\r",
+											"    -- Line of credit = 0\r",
+											"    -- Actual/Actual (23)\r",
+											"        --- Should include opening balance(s) and pending transactions.\r",
+											"    -- Pledge Time Accounts (24)\r",
+											"        --- Should include opening balance(s) and pending transactions.\r",
+											"*/\r",
+											"\r",
+											"\r",
+											"//console.info(\"Getting data array\");\r",
+											"let arrayBpIdList = basicTestArrays.cmsBpIdList();\r",
+											"//console.info(\"Getting random selection\");\r",
+											"let xfrBpId = basicTestArrays.randSelectElement(arrayBpIdList);\r",
+											"//console.info(\"Randomly selected BP ID is: \" + xfrBpId);\r",
+											"//console.info(\"Resetting paramater\");\r",
+											"pm.variables.set(\"xfrBpId\",xfrBpId);\r",
+											"//pm.request.url.query.upsert({ key: \":bpId\", value: \"{{xfrBpId}}\" });\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(Number(1000),pm.response);\r",
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
+											"\r",
+											"\r",
+											"\r",
+											"console.info(\"Setting common Response Body data cluster for Request Tests\");\r",
+											"let objResponseBody = pm.response.json();\r",
+											"\r",
+											"\r",
+											"console.info (\"Request Test #1 - Disabled\")\r",
+											"/* Not currently implemented\r",
+											"pm.test(\"Request Test #1 - Confirming all returned entries are Pending\", function()\r",
+											"{\r",
+											"    console.log(\"Running Request Test #1 - All Returned are Pending Journals\");\r",
+											"    if (!Array.isArray(pm.resposne.json().data))\r",
+											"    {\r",
+											"        pm.expect.fail(\"Data returned was not an array\");\r",
+											"    } else if (pm.response.json().data !== null)\r",
+											"    {\r",
+											"        console.info(\"Pending Journals array has data\");\r",
+											"        let pendingJournalCount = 0;\r",
+											"        pm.response.json().data.forEach((entry,index) =>\r",
+											"        {\r",
+											"            if (entry.journalStatus === 'pending')\r",
+											"            {\r",
+											"                pendingJournalCount += 1;\r",
+											"            };\r",
+											"        });\r",
+											"    } else\r",
+											"    {\r",
+											"        pm.expect.fail(\"No data available\");\r",
+											"    };\r",
+											"\r",
+											"    pm.expect(pendingJournalCount, \"Pending Journal Count did not match the data length of pending journal entries\").to.be.eql(pm.resopnse.json().data.length);\r",
+											"});\r",
+											"*/\r",
+											"\r",
+											"\r",
+											"if (pm.response.code === 200 && pm.response.json().errorCode === 20000)\r",
+											"{\r",
+											"    console.info(\"Temporary Tests for currently deployed functionality of successful runs\");\r",
+											"    console.log(\"Temporary Request Test #1\");\r",
+											"    ((objResponseBody.errorCode === 20000 && objResponseBody.isSuccess === true && objResponseBody.data !== null) ? pm.test : pm.skip)(\"Temporary Request Test #1 - Default Values for Wire Accounts Returning Properly\", function()\r",
+											"    {\r",
+											"        let objDataBody = objResponseBody.data\r",
+											"        pm.expect(objDataBody.incomingWiresBalance).to.be.eql(0);\r",
+											"        pm.expect(objDataBody.outgoingWiresBalance).to.be.eql(0);\r",
+											"        pm.expect(objDataBody.lineOfCreditBalance).to.be.eql(0);\r",
+											"    });\r",
+											"\r",
+											"\r",
+											"    console.log(\"Temporary Request Test #2\");\r",
+											"    ((objResponseBody.errorCode === 20000 && objResponseBody.isSuccess === true && objResponseBody.data !== null) ? pm.test : pm.skip)(\"Temporary Request Test #2 - Calculated Values Are Correct\", function()\r",
+											"    {\r",
+											"        let objDataBody = objResponseBody.data\r",
+											"        let calcValue = 0\r",
+											"        calcValue = objDataBody.openingBalance + objDataBody.pendingJournalBalance;\r",
+											"        pm.expect(objDataBody.wiresAvailableBalance).to.be.eql(calcValue);\r",
+											"    });\r",
+											"};\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											},
+											"@ilab44/standard_data_arrays": {
+												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
+											}
+										},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ea128c8b-dd75-4ae9-adaf-1f1b935dd75c",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"const basicTestArrays = pm.require('@ilab44/standard_data_arrays');\r",
+											"\r",
+											"\r",
+											"//console.info(\"Getting data array\");\r",
+											"let arrayBpIdList = basicTestArrays.cmsBpIdList();\r",
+											"//console.info(\"Getting random selection\");\r",
+											"let xfrBpId = basicTestArrays.randSelectElement(arrayBpIdList);\r",
+											"//console.info(\"Randomly selected BP ID is: \" + xfrBpId);\r",
+											"//console.info(\"Resetting paramater\");\r",
+											"pm.variables.set(\"xfrBpId\",xfrBpId);\r",
+											"//pm.request.url.query.upsert({ key: \":bpId\", value: \"{{xfrBpId}}\" });\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											},
+											"@ilab44/standard_data_arrays": {
+												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
+											}
+										},
+										"requests": {}
+									}
+								}
+							],
+							"id": "a34e9815-e679-45b3-9231-44786deb67a6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://sbx.dda-integration-api.fhlbi.com/business-partner/aggregated-amounts/:bpId",
+									"protocol": "https",
+									"host": [
+										"sbx",
+										"dda-integration-api",
+										"fhlbi",
+										"com"
+									],
+									"path": [
+										"business-partner",
+										"aggregated-amounts",
+										":bpId"
+									],
+									"variable": [
+										{
+											"key": "bpId",
+											"value": "100238",
+											"description": "{{xfrBpId}} - Automated"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "573bfe18-ea06-4f16-8b21-44046edb3695"
 				},
 				{
 					"name": "IndexType",
