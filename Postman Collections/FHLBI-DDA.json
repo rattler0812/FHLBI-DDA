@@ -507,6 +507,245 @@
 					"name": "Accounts",
 					"item": [
 						{
+							"name": "CMS Account Display",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "396ecafc-074f-4765-af3f-5119d1273b3d",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"\r",
+											"console.log(\"Executing the DDA Edit API for iteration #\" + pm.iterationData.get(\"testID\"))\r",
+											"//console.log(\"Checking validation of iteration data.\")\r",
+											"\r",
+											"/*\r",
+											"//console.log(\"If-Then block\")\r",
+											"if (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw)\r",
+											"{\r",
+											"const requestBodyJson = JSON.parse(pm.request.body.raw);\r",
+											"console.log(\"Request Body JSON:\", requestBodyJson);\r",
+											"pm.collectionVariables.set(\"passCmsNumber\",requestBodyJson.cmsNumber);\r",
+											"console.log(\"Path Variable for the CMS Number is: \" + pm.collectionVariables.get(\"passCmsNumber\"));\r",
+											"} else \r",
+											"{\r",
+											"    console.log(\"Request Body of Test #\" + pm.iterationData.get(\"testID\") + \" is not JSON\")\r",
+											"    pm.execution.skipRequest();\r",
+											"};\r",
+											"*/\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "afd0ef67-fdd0-410d-a238-e446585f8225",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"//console.log(\"basicTestScripts module: \", basicTestScripts)\r",
+											"\r",
+											"\r",
+											"console.log(\"Execute the post-request test scripts for CMS Account Display\")\r",
+											"\r",
+											"const schema =\r",
+											"{\r",
+											"    \"data\": {\r",
+											"        \"cmsNumber\": 70389997,\r",
+											"        \"type\": \"CMS\",\r",
+											"        \"status\": \"A\",\r",
+											"        \"title\": null,\r",
+											"        \"titleCode\": 22,\r",
+											"        \"isFreeAccount\": false,\r",
+											"        \"payInterestToCmsNumber\": 70389997,\r",
+											"        \"payInterestToType\": \"CMS\",\r",
+											"        \"chargeFeesToCmsNumber\": 70389997,\r",
+											"        \"chargeFeesToType\": \"CMS\",\r",
+											"        \"interestRateId\": \"D0CMS\",\r",
+											"        \"indexTypeModel\": null,\r",
+											"        \"balance\": null,\r",
+											"        \"legalDescription\": null,\r",
+											"        \"businessPartner\": null,\r",
+											"        \"cmsRelationship\": null\r",
+											"    },\r",
+											"    \"errorCode\": 20000,\r",
+											"    \"errorDetail\": null,\r",
+											"    \"isSuccess\": true\r",
+											"}\r",
+											"\r",
+											"\r",
+											"//console.log(pm.response.json())\r",
+											"\r",
+											"\r",
+											"//Standard Tests\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(Number(1000),pm.response);\r",
+											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
+											"\r",
+											"\r",
+											"//Request Tests\r",
+											"(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Request Test #1 - Validation of Edited Fields Values on Good Response\", function()\r",
+											"{\r",
+											"    //parse the JSON response and test the properties for the expected codes/responses\r",
+											"    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.greaterThanOrEqual(0);\r",
+											"    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.lessThanOrEqual(99999999);\r",
+											"    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.greaterThanOrEqual(0);\r",
+											"    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.lessThanOrEqual(99999999);\r",
+											"    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r",
+											"    pm.expect(pm.response.json().data.chargeFeesToType.length).to.be.lessThanOrEqual(4);\r",
+											"    pm.expect(pm.response.json().data.titleCode).to.be.greaterThanOrEqual(0);\r",
+											"    pm.expect(pm.response.json().data.titleCode).to.be.lessThanOrEqual(99);\r",
+											"    pm.expect(pm.response.json().data.interestRateId.length).to.be.lessThanOrEqual(5);\r",
+											"});\r",
+											"\r",
+											"let bDataStatic = 0\r",
+											"if (pm.response.json().errorCode === 20000 && pm.collectionVariables.get(\"dataStatic\") === true)\r",
+											"{\r",
+											"    bDataStatic = 1;\r",
+											"};\r",
+											"\r",
+											"(bDataStatic ? pm.test : pm.test.skip)(\"Request Test #2 - Confirm Expected Data Matches Actual Returned Data\", function()\r",
+											"{\r",
+											"    pm.expect(pm.response.json().data.titleCode).to.eql(pm.data.titleCode);\r",
+											"});\r",
+											"\r",
+											"//pm.collectionVariables.set(\"passCmsNumber\",\"\");\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								}
+							],
+							"id": "76926814-f106-4abe-b671-f60e61e448fb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cmsNumber\": 12909995,\r\n    \"type\": \"CMS\",\r\n    \"status\": \"A\",\r\n    \"title\": \"REGULAR DEMAND\",\r\n    \"titleCode\": 23,\r\n    \"isFreeAccount\": false,\r\n    \"payInterestToCmsNumber\": 12909995,\r\n    \"payInterestToType\": \"CMS\",\r\n    \"chargeFeesToCmsNumber\": 12909995,\r\n    \"chargeFeesToType\": \"CMS\",\r\n    \"interestRateId\": \"D0CMS\"\r\n}    \r\n    ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber?accountType=TIM",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_Integration}}accounts"
+									],
+									"path": [
+										":cmsNumber"
+									],
+									"query": [
+										{
+											"key": "accountType",
+											"value": "TIM"
+										}
+									],
+									"variable": [
+										{
+											"key": "cmsNumber",
+											"value": "78059999"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CMS Account Edit",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"//The following is a sample JSON Payload to be sent\r\n\r\n/*\r\nThere are 3 integration APIs and 1 LL API that can be used to populate data in this request body.  They are:\r\n    * LL GET /dda/accounts/{cmsNumber}\r\n    * Integration GET /business-partner/{bpId}\r\n    * LL GET /ifs/cms-relationships/{cmsNumber}\r\n*/\r\nconst schemaRequest = \r\n{\r\n  \"cmsNumber\": 0,\r\n  \"type\": \"string\",\r\n  \"status\": \"string\",\r\n  \"title\": \"string\",\r\n  \"titleCode\": 0,\r\n  \"isFreeAccount\": true,\r\n  \"payInterestToCmsNumber\": 0,\r\n  \"payInterestToType\": \"string\",\r\n  \"chargeFeesToCmsNumber\": 0,\r\n  \"chargeFeesToType\": \"string\",\r\n  \"masterAccountCmsNumber\": 0,\r\n  \"interestRateId\": \"string\",\r\n  \"indexTypeModel\": {\r\n    \"idxId\": \"string\",\r\n    \"idxLabel\": \"string\"\r\n  },\r\n  \"balance\": 0,\r\n  \"legalDescription\": \"string\",\r\n  \"shortName\": \"string\",\r\n  \"businessPartner\": {\r\n    \"bpId\": 0,\r\n    \"bpName\": \"string\",\r\n    \"bpType\": \"string\",\r\n    \"city\": \"string\",\r\n    \"stateId\": \"string\",\r\n    \"state\": \"string\",\r\n    \"countryId\": \"string\",\r\n    \"country\": \"string\",\r\n    \"address1\": \"string\",\r\n    \"address2\": \"string\",\r\n    \"zip\": \"string\",\r\n    \"poBox\": \"string\"\r\n  },\r\n  \"cmsRelationship\": {\r\n    \"bpId\": 0,\r\n    \"cmsNbr\": 0,\r\n    \"cmsNbrType\": \"M\"\r\n  }\r\n}\r\n\r\n\r\nconsole.log(\"Executing the DDA Edit API for iteration #\" + pm.iterationData.get(\"testID\"))\r\nconsole.log(\"Checking validation of iteration data.\")\r\n\r\n/*Validate the values being used in this iteration\r\nIn the basic structure to be used, the initial IF statement will have part of the validation to ensure the data going into the request is valid and compatible with the requirements of the database.*/\r\n\r\n/*Main point to remember with this API is that the CMS number found in the URL of the request will be the CMS Account number changed.  The number in the payload does not really matter.  All other data in the payload must be correct according to the requirements as set forth by the UI when changing the data.\r\n\r\nWhile test data can allow free text entry of the CMS account numbers, Interest IDs, Account Types, and Title Codes, these are not free text entry in the UI.  The UI has drop-down boxes with pre-filled values that are valid in the system and won't crash the system when attempting to retrieve the free text data that might be used.*/\r\n\r\n\r\n//console.log(\"If-Then block\")\r\nif (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw)\r\n{\r\nconst requestBodyJson = JSON.parse(pm.request.body.raw);\r\nconsole.log(\"Request Body JSON:\", requestBodyJson);\r\npm.collectionVariables.set(\"passCmsNumber\",requestBodyJson.cmsNumber);\r\nconsole.log(\"Path Variable for the CMS Number is: \" + pm.collectionVariables.get(\"passCmsNumber\"));\r\n} else \r\n{\r\n    console.log(\"Request Body of Test is not JSON\")\r\n    pm.execution.skipRequest();\r\n};\r\n\r\n\r\n// Validating the JSON Request Body\r\n/*\r\nconsole.log(\"Running validations\")\r\ntry \r\n{\r\n    let typeAccountAcceptable = [\"CMS\",\"TIM\"]\r\n    const requestBodyJson = JSON.parse(pm.request.body.raw);\r\n    \r\n    console.log(\"Free Account\")\r\n    if(requestBodyJson.isFreeAccount === null) throw \"isFreeAccount is an invalid value\";  //isFreeAccount\r\n\r\n    console.log(\"Pay Interest Account Number\")\r\n    if(isNaN(requestBodyJson.payInterestToCmsNumber)) throw \"Interest Account Number is not a number value\";  //Interest Account Number\r\n    if(requestBodyJson.payInterestToCmsNumber > 99999999 && requestBodyJson.payInterestToCmsNumber < 0) throw \"Pay Interest Account Number is not in the accepted range\"\r\n\r\n    console.log(\"Pay Interest To Type\")\r\n    if(!typeAccountAcceptable.includes(requestBodyJson.payInterestToType)) throw \"Interest Type is not valid\";  //Interest Account Type\r\n\r\n    console.log(\"Charge Fees Account Number\")\r\n    if(isNaN(requestBodyJson.chargeFeesToCmsNumber)) throw \"Charge Fees Account Number is not a number\";  //Fee Account Number\r\n    if(requestBodyJson.chargeFeesToCmsNumber > 99999999 && requestBodyJson.chargeFeesToCmsNumber < 0) throw \"Charge Fees Account Number is not in the accepted range\"\r\n    \r\n    console.log(\"Charge Fees To Type\")\r\n    if(!typeAccountAcceptable.includes(requestBodyJson.chargeFeesToType)) throw \"Charge Fees Type is not valid\";  //Fee Account Type\r\n\r\n    console.log(\"Interest Rate ID\")\r\n    if(requestBodyJson.interestRateId.length !== 5 || (requestBodyJson.interestRateId === \"NONE\" || requestBodyJson.interestRateId === null)) throw \"Interest Rate ID is not the correct length\";  //IdxId\r\n    \r\n    console.log(\"Title Code\")\r\n    if(isNaN(requestBodyJson.titleCode)) throw \"Title Code is not a number\";  //Account Title\r\n} catch (e)\r\n{\r\n    console.error(\"Error parsing request body:\", e);\r\n    pm.execution.skipRequest();\r\n};\r\n\r\nconsole.log(\"Validation successful.  Proceeding with executing request.\")\r\n*/\r\n\r\n"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"//The following is a sample response expected for this request\r\n\r\nconst schemaResponse = \r\n{\r\n  \"data\": {\r\n    \"cmsNumber\": 0,\r\n    \"type\": \"string\",\r\n    \"status\": \"string\",\r\n    \"title\": \"string\",\r\n    \"titleCode\": 0,\r\n    \"isFreeAccount\": true,\r\n    \"payInterestToCmsNumber\": 0,\r\n    \"payInterestToType\": \"string\",\r\n    \"chargeFeesToCmsNumber\": 0,\r\n    \"chargeFeesToType\": \"string\",\r\n    \"masterAccountCmsNumber\": 0,\r\n    \"interestRateId\": \"string\",\r\n    \"indexTypeModel\": {\r\n      \"idxId\": \"string\",\r\n      \"idxLabel\": \"string\",\r\n      \"indexTypeAndDescription\": \"string\"\r\n    },\r\n    \"balance\": 0,\r\n    \"legalDescription\": \"string\",\r\n    \"businessPartner\": {\r\n      \"bpId\": 0,\r\n      \"bpName\": \"string\",\r\n      \"bpType\": \"string\",\r\n      \"city\": \"string\",\r\n      \"stateId\": \"string\",\r\n      \"state\": \"string\",\r\n      \"countryId\": \"string\",\r\n      \"country\": \"string\",\r\n      \"address1\": \"string\",\r\n      \"address2\": \"string\",\r\n      \"zip\": \"string\",\r\n      \"poBox\": \"string\"\r\n    },\r\n    \"cmsRelationship\": {\r\n      \"bpId\": 0,\r\n      \"cmsNbr\": 0,\r\n      \"cmsNbrType\": 0\r\n    },\r\n    \"titleCodeAndDescription\": \"string\"\r\n  },\r\n  \"errorCode\": 1,\r\n  \"errorDetail\": {\r\n    \"statusCode\": 0,\r\n    \"path\": \"string\",\r\n    \"errorMessage\": \"string\",\r\n    \"stackTrace\": \"string\"\r\n  },\r\n  \"isSuccess\": true\r\n}\r\n\r\n\r\nconsole.log(\"Execute the post-request test scripts for CMS Account Edit\")\r\n\r\nconsole.log(pm.response.json())\r\n\r\n//Test #1 is to ensure we get a 200 status code for the API request\r\npm.test(\"Test #1 - Postman Request Pass or Fail\", function()\r\n{\r\n    switch (pm.response.code)\r\n        {\r\n            case 200:\r\n                pm.expect(true).to.be.true;\r\n                break;\r\n            case 404:\r\n                pm.expect.fail(\"Test #1 - 404 error thrown on API Request\");\r\n                break;\r\n            default:\r\n                pm.expect.fail(\"Test #1 - Postman Request Failed with code \" + pm.response.code);\r\n        };\r\n});\r\n\r\n\r\n//Test #2 is to ensure we get a response within a specified time limit\r\npm.test(\"Test #2 - Response Time is less than \" + pm.collectionVariables.get(\"timeAcceptableResponse\") + \"ms\", function()\r\n{\r\n    pm.expect(pm.response.responseTime).to.be.lessThanOrEqual(Number(pm.collectionVariables.get(\"timeAcceptableResponse\")));\r\n});\r\n\r\n\r\n//Test #3 is to ensure the response received shows as a successful\r\n(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Test #3 - Response is successful\", function() {\r\n    //parse the response JSON and test three properties\r\n    pm.expect(pm.response.json().errorCode).to.be.eql(20000);\r\n    pm.expect(pm.response.json().isSuccess).to.be.true;\r\n    pm.expect(pm.response.json().errorDetail).to.be.null;\r\n});\r\n\r\n\r\n//Test #4 is to ensure that if the response returned caused an error that the error matches the expectataion of the test\r\n(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Test #4 - Validation of Edited Fields Values\", function()\r\n{\r\n    //parse the JSON response and test the properties for the expected codes/responses\r\n    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.lessThanOrEqual(99999999);\r\n    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.lessThanOrEqual(99999999);\r\n    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r\n    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r\n    pm.expect(pm.response.json().data.titleCode).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.titleCode).to.be.lessThanOrEqual(99);\r\n    pm.expect(pm.response.json().data.interestRateId.length).to.be.lessThanOrEqual(5);\r\n});\r\n\r\npm.test(\"Test #5 - Valid Combination of Account Number and Type\", function()\r\n{\r\n    pm.expect(pm.response.json().errorCode).not.to.be.eql(404);\r\n});\r\n\r\n\r\n(pm.response.json().errorCode !== 2 ? pm.test.skip : pm.test)(\"Test #6 - Validate Restricted Updates Return Proper Response Codes\", function()\r\n{\r\n    pm.expect(pm.response.json().errorCode).to.eql(2);\r\n    pm.expect(pm.response.json().errorDetail.statusCode).to.be.eql(400);\r\n    let sMsg = pm.response.json().errorDetail.errorMessage;\r\n    sMsg = sMsg.substring(0,21);\r\n    console.log(\"errorMessage Substring is: \" + sMsg + \".\")\r\n    pm.expect(sMsg).to.eql(\"Invalid Account Title\");\r\n});\r\n\r\nlet bDataStatic = 0\r\nif (pm.response.json().errorCode === 20000 && pm.collectionVariables.get(\"dataStatic\") === true)\r\n{\r\n    bDataStatic = 1;\r\n};\r\n\r\n(bDataStatic ? pm.test : pm.test.skip)(\"Test #7 - Confirm Expected Data Matches Actual Returned Data\", function()\r\n{\r\n    pm.expect(pm.response.json().data.titleCode).to.eql(pm.data.titleCode);\r\n});\r\n\r\npm.collectionVariables.set(\"passCmsNumber\",\"\");\r\n\r\n\r\n\r\n"
+										]
+									}
+								}
+							],
+							"id": "b98ca935-2536-4809-9d1d-44cda7718475",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cmsNumber\": 77119995,\r\n    \"type\": \"CMS\",\r\n    \"status\": \"A\",\r\n    \"title\": \"REGULAR DEMAND\",\r\n    \"titleCode\": 23,\r\n    \"isFreeAccount\": false,\r\n    \"payInterestToCmsNumber\": 77119995,\r\n    \"payInterestToType\": \"CMS\",\r\n    \"chargeFeesToCmsNumber\": 77119995,\r\n    \"chargeFeesToType\": \"CMS\",\r\n    \"masterAccountCmsNumber\": 77119995,\r\n    \"interestRateId\": \"D0CMS\",\r\n    \"indexTypeModel\":\r\n        {\r\n            \"idxId\": \"D0CMS\",\r\n            \"idxLabel\": \"Dep Final - CMS\"\r\n        },\r\n    \"balance\": 702433.49,\r\n    \"legalDescription\": \"Testing\",\r\n    \"businessPartner\":\r\n        {\r\n            \"bpId\": 103387,\r\n            \"bpName\": \"Security Credit Union\",\r\n            \"bpType\": \"MBR\",\r\n            \"city\": \"Holly\",\r\n            \"stateId\": \"MI\",\r\n            \"state\": \"Michigan\",\r\n            \"countryId\": \"USA\",\r\n            \"country\": \"United States of America\",\r\n            \"address1\": \"5255 Security Park Boulevard\",\r\n            \"address2\": null,\r\n            \"zip\": \"48442\",\r\n            \"poBox\": \"PO Box 5255\"\r\n        },\r\n    \"cmsRelationship\":\r\n        {\r\n    \"bpId\": 103381,\r\n    \"cmsNbr\": 77119995,\r\n    \"cmsNbrType\": 1\r\n        }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber?sessionBpId=100080",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_Integration}}accounts"
+									],
+									"path": [
+										":cmsNumber"
+									],
+									"query": [
+										{
+											"key": "sessionBpId",
+											"value": "100080",
+											"description": "BP ID"
+										}
+									],
+									"variable": [
+										{
+											"id": "79ec1867-b317-4f5c-990e-db0426cc6c6a",
+											"key": "cmsNumber",
+											"value": "70759997",
+											"description": "CMS account number"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "CMS Account Search",
 							"event": [
 								{
@@ -714,72 +953,6 @@
 										{
 											"key": "accountTitleCode",
 											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CMS Account Edit",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"//The following is a sample JSON Payload to be sent\r\n\r\n/*\r\nThere are 3 integration APIs and 1 LL API that can be used to populate data in this request body.  They are:\r\n    * LL GET /dda/accounts/{cmsNumber}\r\n    * Integration GET /business-partner/{bpId}\r\n    * LL GET /ifs/cms-relationships/{cmsNumber}\r\n*/\r\nconst schemaRequest = \r\n{\r\n  \"cmsNumber\": 0,\r\n  \"type\": \"string\",\r\n  \"status\": \"string\",\r\n  \"title\": \"string\",\r\n  \"titleCode\": 0,\r\n  \"isFreeAccount\": true,\r\n  \"payInterestToCmsNumber\": 0,\r\n  \"payInterestToType\": \"string\",\r\n  \"chargeFeesToCmsNumber\": 0,\r\n  \"chargeFeesToType\": \"string\",\r\n  \"masterAccountCmsNumber\": 0,\r\n  \"interestRateId\": \"string\",\r\n  \"indexTypeModel\": {\r\n    \"idxId\": \"string\",\r\n    \"idxLabel\": \"string\"\r\n  },\r\n  \"balance\": 0,\r\n  \"legalDescription\": \"string\",\r\n  \"shortName\": \"string\",\r\n  \"businessPartner\": {\r\n    \"bpId\": 0,\r\n    \"bpName\": \"string\",\r\n    \"bpType\": \"string\",\r\n    \"city\": \"string\",\r\n    \"stateId\": \"string\",\r\n    \"state\": \"string\",\r\n    \"countryId\": \"string\",\r\n    \"country\": \"string\",\r\n    \"address1\": \"string\",\r\n    \"address2\": \"string\",\r\n    \"zip\": \"string\",\r\n    \"poBox\": \"string\"\r\n  },\r\n  \"cmsRelationship\": {\r\n    \"bpId\": 0,\r\n    \"cmsNbr\": 0,\r\n    \"cmsNbrType\": \"M\"\r\n  }\r\n}\r\n\r\n\r\nconsole.log(\"Executing the DDA Edit API for iteration #\" + pm.iterationData.get(\"testID\"))\r\nconsole.log(\"Checking validation of iteration data.\")\r\n\r\n/*Validate the values being used in this iteration\r\nIn the basic structure to be used, the initial IF statement will have part of the validation to ensure the data going into the request is valid and compatible with the requirements of the database.*/\r\n\r\n/*Main point to remember with this API is that the CMS number found in the URL of the request will be the CMS Account number changed.  The number in the payload does not really matter.  All other data in the payload must be correct according to the requirements as set forth by the UI when changing the data.\r\n\r\nWhile test data can allow free text entry of the CMS account numbers, Interest IDs, Account Types, and Title Codes, these are not free text entry in the UI.  The UI has drop-down boxes with pre-filled values that are valid in the system and won't crash the system when attempting to retrieve the free text data that might be used.*/\r\n\r\n\r\n//console.log(\"If-Then block\")\r\nif (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw)\r\n{\r\nconst requestBodyJson = JSON.parse(pm.request.body.raw);\r\nconsole.log(\"Request Body JSON:\", requestBodyJson);\r\npm.collectionVariables.set(\"passCmsNumber\",requestBodyJson.cmsNumber);\r\nconsole.log(\"Path Variable for the CMS Number is: \" + pm.collectionVariables.get(\"passCmsNumber\"));\r\n} else \r\n{\r\n    console.log(\"Request Body of Test is not JSON\")\r\n    pm.execution.skipRequest();\r\n};\r\n\r\n\r\n// Validating the JSON Request Body\r\n/*\r\nconsole.log(\"Running validations\")\r\ntry \r\n{\r\n    let typeAccountAcceptable = [\"CMS\",\"TIM\"]\r\n    const requestBodyJson = JSON.parse(pm.request.body.raw);\r\n    \r\n    console.log(\"Free Account\")\r\n    if(requestBodyJson.isFreeAccount === null) throw \"isFreeAccount is an invalid value\";  //isFreeAccount\r\n\r\n    console.log(\"Pay Interest Account Number\")\r\n    if(isNaN(requestBodyJson.payInterestToCmsNumber)) throw \"Interest Account Number is not a number value\";  //Interest Account Number\r\n    if(requestBodyJson.payInterestToCmsNumber > 99999999 && requestBodyJson.payInterestToCmsNumber < 0) throw \"Pay Interest Account Number is not in the accepted range\"\r\n\r\n    console.log(\"Pay Interest To Type\")\r\n    if(!typeAccountAcceptable.includes(requestBodyJson.payInterestToType)) throw \"Interest Type is not valid\";  //Interest Account Type\r\n\r\n    console.log(\"Charge Fees Account Number\")\r\n    if(isNaN(requestBodyJson.chargeFeesToCmsNumber)) throw \"Charge Fees Account Number is not a number\";  //Fee Account Number\r\n    if(requestBodyJson.chargeFeesToCmsNumber > 99999999 && requestBodyJson.chargeFeesToCmsNumber < 0) throw \"Charge Fees Account Number is not in the accepted range\"\r\n    \r\n    console.log(\"Charge Fees To Type\")\r\n    if(!typeAccountAcceptable.includes(requestBodyJson.chargeFeesToType)) throw \"Charge Fees Type is not valid\";  //Fee Account Type\r\n\r\n    console.log(\"Interest Rate ID\")\r\n    if(requestBodyJson.interestRateId.length !== 5 || (requestBodyJson.interestRateId === \"NONE\" || requestBodyJson.interestRateId === null)) throw \"Interest Rate ID is not the correct length\";  //IdxId\r\n    \r\n    console.log(\"Title Code\")\r\n    if(isNaN(requestBodyJson.titleCode)) throw \"Title Code is not a number\";  //Account Title\r\n} catch (e)\r\n{\r\n    console.error(\"Error parsing request body:\", e);\r\n    pm.execution.skipRequest();\r\n};\r\n\r\nconsole.log(\"Validation successful.  Proceeding with executing request.\")\r\n*/\r\n\r\n"
-										]
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"//The following is a sample response expected for this request\r\n\r\nconst schemaResponse = \r\n{\r\n  \"data\": {\r\n    \"cmsNumber\": 0,\r\n    \"type\": \"string\",\r\n    \"status\": \"string\",\r\n    \"title\": \"string\",\r\n    \"titleCode\": 0,\r\n    \"isFreeAccount\": true,\r\n    \"payInterestToCmsNumber\": 0,\r\n    \"payInterestToType\": \"string\",\r\n    \"chargeFeesToCmsNumber\": 0,\r\n    \"chargeFeesToType\": \"string\",\r\n    \"masterAccountCmsNumber\": 0,\r\n    \"interestRateId\": \"string\",\r\n    \"indexTypeModel\": {\r\n      \"idxId\": \"string\",\r\n      \"idxLabel\": \"string\",\r\n      \"indexTypeAndDescription\": \"string\"\r\n    },\r\n    \"balance\": 0,\r\n    \"legalDescription\": \"string\",\r\n    \"businessPartner\": {\r\n      \"bpId\": 0,\r\n      \"bpName\": \"string\",\r\n      \"bpType\": \"string\",\r\n      \"city\": \"string\",\r\n      \"stateId\": \"string\",\r\n      \"state\": \"string\",\r\n      \"countryId\": \"string\",\r\n      \"country\": \"string\",\r\n      \"address1\": \"string\",\r\n      \"address2\": \"string\",\r\n      \"zip\": \"string\",\r\n      \"poBox\": \"string\"\r\n    },\r\n    \"cmsRelationship\": {\r\n      \"bpId\": 0,\r\n      \"cmsNbr\": 0,\r\n      \"cmsNbrType\": 0\r\n    },\r\n    \"titleCodeAndDescription\": \"string\"\r\n  },\r\n  \"errorCode\": 1,\r\n  \"errorDetail\": {\r\n    \"statusCode\": 0,\r\n    \"path\": \"string\",\r\n    \"errorMessage\": \"string\",\r\n    \"stackTrace\": \"string\"\r\n  },\r\n  \"isSuccess\": true\r\n}\r\n\r\n\r\nconsole.log(\"Execute the post-request test scripts for CMS Account Edit\")\r\n\r\nconsole.log(pm.response.json())\r\n\r\n//Test #1 is to ensure we get a 200 status code for the API request\r\npm.test(\"Test #1 - Postman Request Pass or Fail\", function()\r\n{\r\n    switch (pm.response.code)\r\n        {\r\n            case 200:\r\n                pm.expect(true).to.be.true;\r\n                break;\r\n            case 404:\r\n                pm.expect.fail(\"Test #1 - 404 error thrown on API Request\");\r\n                break;\r\n            default:\r\n                pm.expect.fail(\"Test #1 - Postman Request Failed with code \" + pm.response.code);\r\n        };\r\n});\r\n\r\n\r\n//Test #2 is to ensure we get a response within a specified time limit\r\npm.test(\"Test #2 - Response Time is less than \" + pm.collectionVariables.get(\"timeAcceptableResponse\") + \"ms\", function()\r\n{\r\n    pm.expect(pm.response.responseTime).to.be.lessThanOrEqual(Number(pm.collectionVariables.get(\"timeAcceptableResponse\")));\r\n});\r\n\r\n\r\n//Test #3 is to ensure the response received shows as a successful\r\n(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Test #3 - Response is successful\", function() {\r\n    //parse the response JSON and test three properties\r\n    pm.expect(pm.response.json().errorCode).to.be.eql(20000);\r\n    pm.expect(pm.response.json().isSuccess).to.be.true;\r\n    pm.expect(pm.response.json().errorDetail).to.be.null;\r\n});\r\n\r\n\r\n//Test #4 is to ensure that if the response returned caused an error that the error matches the expectataion of the test\r\n(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Test #4 - Validation of Edited Fields Values\", function()\r\n{\r\n    //parse the JSON response and test the properties for the expected codes/responses\r\n    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.lessThanOrEqual(99999999);\r\n    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.lessThanOrEqual(99999999);\r\n    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r\n    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r\n    pm.expect(pm.response.json().data.titleCode).to.be.greaterThanOrEqual(0);\r\n    pm.expect(pm.response.json().data.titleCode).to.be.lessThanOrEqual(99);\r\n    pm.expect(pm.response.json().data.interestRateId.length).to.be.lessThanOrEqual(5);\r\n});\r\n\r\npm.test(\"Test #5 - Valid Combination of Account Number and Type\", function()\r\n{\r\n    pm.expect(pm.response.json().errorCode).not.to.be.eql(404);\r\n});\r\n\r\n\r\n(pm.response.json().errorCode !== 2 ? pm.test.skip : pm.test)(\"Test #6 - Validate Restricted Updates Return Proper Response Codes\", function()\r\n{\r\n    pm.expect(pm.response.json().errorCode).to.eql(2);\r\n    pm.expect(pm.response.json().errorDetail.statusCode).to.be.eql(400);\r\n    let sMsg = pm.response.json().errorDetail.errorMessage;\r\n    sMsg = sMsg.substring(0,21);\r\n    console.log(\"errorMessage Substring is: \" + sMsg + \".\")\r\n    pm.expect(sMsg).to.eql(\"Invalid Account Title\");\r\n});\r\n\r\nlet bDataStatic = 0\r\nif (pm.response.json().errorCode === 20000 && pm.collectionVariables.get(\"dataStatic\") === true)\r\n{\r\n    bDataStatic = 1;\r\n};\r\n\r\n(bDataStatic ? pm.test : pm.test.skip)(\"Test #7 - Confirm Expected Data Matches Actual Returned Data\", function()\r\n{\r\n    pm.expect(pm.response.json().data.titleCode).to.eql(pm.data.titleCode);\r\n});\r\n\r\npm.collectionVariables.set(\"passCmsNumber\",\"\");\r\n\r\n\r\n\r\n"
-										]
-									}
-								}
-							],
-							"id": "b98ca935-2536-4809-9d1d-44cda7718475",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"cmsNumber\": 77119995,\r\n    \"type\": \"CMS\",\r\n    \"status\": \"A\",\r\n    \"title\": \"REGULAR DEMAND\",\r\n    \"titleCode\": 23,\r\n    \"isFreeAccount\": false,\r\n    \"payInterestToCmsNumber\": 77119995,\r\n    \"payInterestToType\": \"CMS\",\r\n    \"chargeFeesToCmsNumber\": 77119995,\r\n    \"chargeFeesToType\": \"CMS\",\r\n    \"masterAccountCmsNumber\": 77119995,\r\n    \"interestRateId\": \"D0CMS\",\r\n    \"indexTypeModel\":\r\n        {\r\n            \"idxId\": \"D0CMS\",\r\n            \"idxLabel\": \"Dep Final - CMS\"\r\n        },\r\n    \"balance\": 702433.49,\r\n    \"legalDescription\": \"Testing\",\r\n    \"businessPartner\":\r\n        {\r\n            \"bpId\": 103387,\r\n            \"bpName\": \"Security Credit Union\",\r\n            \"bpType\": \"MBR\",\r\n            \"city\": \"Holly\",\r\n            \"stateId\": \"MI\",\r\n            \"state\": \"Michigan\",\r\n            \"countryId\": \"USA\",\r\n            \"country\": \"United States of America\",\r\n            \"address1\": \"5255 Security Park Boulevard\",\r\n            \"address2\": null,\r\n            \"zip\": \"48442\",\r\n            \"poBox\": \"PO Box 5255\"\r\n        },\r\n    \"cmsRelationship\":\r\n        {\r\n    \"bpId\": 103381,\r\n    \"cmsNbr\": 77119995,\r\n    \"cmsNbrType\": 1\r\n        }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber?sessionBpId=100080",
-									"protocol": "https",
-									"host": [
-										"{{environment}}{{baseURL_Integration}}accounts"
-									],
-									"path": [
-										":cmsNumber"
-									],
-									"query": [
-										{
-											"key": "sessionBpId",
-											"value": "100080",
-											"description": "BP ID"
-										}
-									],
-									"variable": [
-										{
-											"id": "79ec1867-b317-4f5c-990e-db0426cc6c6a",
-											"key": "cmsNumber",
-											"value": "70759997",
-											"description": "CMS account number"
 										}
 									]
 								}
@@ -1230,172 +1403,43 @@
 							"response": []
 						},
 						{
-							"name": "CMS Account Display",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "396ecafc-074f-4765-af3f-5119d1273b3d",
-										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
-											"\r",
-											"\r",
-											"console.log(\"Executing the DDA Edit API for iteration #\" + pm.iterationData.get(\"testID\"))\r",
-											"//console.log(\"Checking validation of iteration data.\")\r",
-											"\r",
-											"/*\r",
-											"//console.log(\"If-Then block\")\r",
-											"if (pm.request.body && pm.request.body.mode === 'raw' && pm.request.body.raw)\r",
-											"{\r",
-											"const requestBodyJson = JSON.parse(pm.request.body.raw);\r",
-											"console.log(\"Request Body JSON:\", requestBodyJson);\r",
-											"pm.collectionVariables.set(\"passCmsNumber\",requestBodyJson.cmsNumber);\r",
-											"console.log(\"Path Variable for the CMS Number is: \" + pm.collectionVariables.get(\"passCmsNumber\"));\r",
-											"} else \r",
-											"{\r",
-											"    console.log(\"Request Body of Test #\" + pm.iterationData.get(\"testID\") + \" is not JSON\")\r",
-											"    pm.execution.skipRequest();\r",
-											"};\r",
-											"*/\r",
-											"\r",
-											"\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {
-											"@ilab44/basic_test_scripts": {
-												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
-											}
-										},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "afd0ef67-fdd0-410d-a238-e446585f8225",
-										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
-											"//console.log(\"basicTestScripts module: \", basicTestScripts)\r",
-											"\r",
-											"\r",
-											"console.log(\"Execute the post-request test scripts for CMS Account Display\")\r",
-											"\r",
-											"const schema =\r",
-											"{\r",
-											"    \"data\": {\r",
-											"        \"cmsNumber\": 70389997,\r",
-											"        \"type\": \"CMS\",\r",
-											"        \"status\": \"A\",\r",
-											"        \"title\": null,\r",
-											"        \"titleCode\": 22,\r",
-											"        \"isFreeAccount\": false,\r",
-											"        \"payInterestToCmsNumber\": 70389997,\r",
-											"        \"payInterestToType\": \"CMS\",\r",
-											"        \"chargeFeesToCmsNumber\": 70389997,\r",
-											"        \"chargeFeesToType\": \"CMS\",\r",
-											"        \"interestRateId\": \"D0CMS\",\r",
-											"        \"indexTypeModel\": null,\r",
-											"        \"balance\": null,\r",
-											"        \"legalDescription\": null,\r",
-											"        \"businessPartner\": null,\r",
-											"        \"cmsRelationship\": null\r",
-											"    },\r",
-											"    \"errorCode\": 20000,\r",
-											"    \"errorDetail\": null,\r",
-											"    \"isSuccess\": true\r",
-											"}\r",
-											"\r",
-											"\r",
-											"//console.log(pm.response.json())\r",
-											"\r",
-											"\r",
-											"//Standard Tests\r",
-											"basicTestScripts.testRequestSuccess(pm.response);\r",
-											"basicTestScripts.testAPISuccess(pm.response);\r",
-											"basicTestScripts.testResponseTime(Number(1000),pm.response);\r",
-											"basicTestScripts.testSchemaProper(schema,pm.response,1);\r",
-											"\r",
-											"\r",
-											"//Request Tests\r",
-											"(pm.response.json().errorCode !== 20000 ? pm.test.skip : pm.test)(\"Request Test #1 - Validation of Edited Fields Values on Good Response\", function()\r",
-											"{\r",
-											"    //parse the JSON response and test the properties for the expected codes/responses\r",
-											"    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.greaterThanOrEqual(0);\r",
-											"    pm.expect(pm.response.json().data.payInterestToCmsNumber).to.be.lessThanOrEqual(99999999);\r",
-											"    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.greaterThanOrEqual(0);\r",
-											"    pm.expect(pm.response.json().data.chargeFeesToCmsNumber).to.be.lessThanOrEqual(99999999);\r",
-											"    pm.expect(pm.response.json().data.payInterestToType.length).to.be.lessThanOrEqual(4);\r",
-											"    pm.expect(pm.response.json().data.chargeFeesToType.length).to.be.lessThanOrEqual(4);\r",
-											"    pm.expect(pm.response.json().data.titleCode).to.be.greaterThanOrEqual(0);\r",
-											"    pm.expect(pm.response.json().data.titleCode).to.be.lessThanOrEqual(99);\r",
-											"    pm.expect(pm.response.json().data.interestRateId.length).to.be.lessThanOrEqual(5);\r",
-											"});\r",
-											"\r",
-											"let bDataStatic = 0\r",
-											"if (pm.response.json().errorCode === 20000 && pm.collectionVariables.get(\"dataStatic\") === true)\r",
-											"{\r",
-											"    bDataStatic = 1;\r",
-											"};\r",
-											"\r",
-											"(bDataStatic ? pm.test : pm.test.skip)(\"Request Test #2 - Confirm Expected Data Matches Actual Returned Data\", function()\r",
-											"{\r",
-											"    pm.expect(pm.response.json().data.titleCode).to.eql(pm.data.titleCode);\r",
-											"});\r",
-											"\r",
-											"//pm.collectionVariables.set(\"passCmsNumber\",\"\");\r",
-											"\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {
-											"@ilab44/basic_test_scripts": {
-												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
-											}
-										},
-										"requests": {}
-									}
-								}
-							],
-							"id": "76926814-f106-4abe-b671-f60e61e448fb",
+							"name": "Account Validations",
+							"id": "0713612f-a5ed-4160-beeb-efc42b0e7bf7",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"cmsNumber\": 12909995,\r\n    \"type\": \"CMS\",\r\n    \"status\": \"A\",\r\n    \"title\": \"REGULAR DEMAND\",\r\n    \"titleCode\": 23,\r\n    \"isFreeAccount\": false,\r\n    \"payInterestToCmsNumber\": 12909995,\r\n    \"payInterestToType\": \"CMS\",\r\n    \"chargeFeesToCmsNumber\": 12909995,\r\n    \"chargeFeesToType\": \"CMS\",\r\n    \"interestRateId\": \"D0CMS\"\r\n}    \r\n    ",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber?accountType=TIM",
+									"raw": "https://sbx.dda-integration-api.fhlbi.com/accounts/:cmsNumber/validations/0?accountType=CMS&includeAccountWithSharedCmsNumber=false",
 									"protocol": "https",
 									"host": [
-										"{{environment}}{{baseURL_Integration}}accounts"
+										"sbx",
+										"dda-integration-api",
+										"fhlbi",
+										"com"
 									],
 									"path": [
-										":cmsNumber"
+										"accounts",
+										":cmsNumber",
+										"validations",
+										"0"
 									],
 									"query": [
 										{
 											"key": "accountType",
-											"value": "TIM"
+											"value": "CMS"
+										},
+										{
+											"key": "includeAccountWithSharedCmsNumber",
+											"value": "false"
 										}
 									],
 									"variable": [
 										{
 											"key": "cmsNumber",
-											"value": "78059999"
+											"value": "77719995"
 										}
 									]
 								}
