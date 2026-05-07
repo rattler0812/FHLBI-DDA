@@ -3008,7 +3008,7 @@
 									"originalRequest": {
 										"method": "POST",
 										"header": [],
-										"url": "https://{{environment}}{{baseURL_LL}}dda/journals/batch"
+										"url": "https://test.dda-api.fhlbi.com/dda/journals/batch"
 									},
 									"status": "OK",
 									"code": 200,
