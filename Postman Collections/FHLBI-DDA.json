@@ -746,220 +746,6 @@
 							"response": []
 						},
 						{
-							"name": "CMS Account Search",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "d250ed27-e03e-4ca3-96a5-011757af69a8",
-										"exec": [
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
-											"\r",
-											"console.log(\"Running CMS Account Search Post-Request Script\")\r",
-											"\r",
-											"//Sample of the schema for response:\r",
-											"const postSchema = \r",
-											"{\r",
-											"  \"data\": {\r",
-											"    \"currentPage\": 0,\r",
-											"    \"pageCount\": 0,\r",
-											"    \"pageSize\": 0,\r",
-											"    \"rowCount\": 0,\r",
-											"    \"result\": [\r",
-											"      {\r",
-											"        \"cmsNumber\": 0,\r",
-											"        \"type\": \"string\",\r",
-											"        \"status\": \"string\",\r",
-											"        \"titleCode\": 0,\r",
-											"        \"titleDescription\": \"string\",\r",
-											"        \"bpId\": 0,\r",
-											"        \"bpName\": \"string\",\r",
-											"        \"accountSearchResultsMaxLimitMessage\": \"string\",\r",
-											"        \"titleCodeAndDescription\": \"string\"\r",
-											"      }\r",
-											"    ]\r",
-											"  },\r",
-											"  \"errorCode\": 1,\r",
-											"  \"errorDetail\": {\r",
-											"    \"statusCode\": 0,\r",
-											"    \"path\": \"string\",\r",
-											"    \"errorMessage\": \"string\",\r",
-											"    \"stackTrace\": \"string\"\r",
-											"  },\r",
-											"  \"isSuccess\": true\r",
-											"}\r",
-											"\r",
-											"\r",
-											"basicTestScripts.testRequestSuccess(pm.response);\r",
-											"basicTestScripts.testAPISuccess(pm.response);\r",
-											"basicTestScripts.testResponseTime(Number(10000),pm.response);\r",
-											"basicTestScripts.testSchemaProper(postSchema,pm.response,1);\r",
-											"\r",
-											"//Function test for the type of search that was conducted to ensure data was returned unless no results were available for the search criteria.\r",
-											"console.log (\"Request Test #1 - Checking for Functional Search Test\")\r",
-											"if (pm.response.json().errorCode === 20000 && pm.response.json().data.rowCount > 0) \r",
-											"{\r",
-											"    //console.log(\"errorCode was 20000 with a rowCount greater than zero\");\r",
-											"    ((pm.response.json().data.currentPage > pm.response.json().data.pageCount) ? pm.test.skip : pm.test)(\"Functional Search Test for \" + pm.request.url.query.get(\"searchType\") + \" where the indicated page is \" + pm.request.url.query.get(\"pageIndex\") + \" and total pages is \" + pm.response.json().data.pageCount, function ()\r",
-											"    {\r",
-											"        //console.log(\"Running the test on the Functional Search Test\")\r",
-											"        switch (pm.request.url.query.get(\"searchType\")) \r",
-											"        {\r",
-											"            case \"CmsNumber\":\r",
-											"                console.log(\"Functional Search Test for CMS Account Search using CMS Account Number\")\r",
-											"                pm.expect(true).to.be.true;\r",
-											"                break;\r",
-											"            case \"BpId\":\r",
-											"                console.log(\"Functional Search Test for CMS Account Search using BP ID\")\r",
-											"                //Validation that a 6 digit number is passed in is done in the UI\r",
-											"                //  There is no validation of the BP ID length in the API\r",
-											"                switch (String(pm.request.url.query.get(\"searchValue\")).length)\r",
-											"                {\r",
-											"                    case 6:\r",
-											"                        //Code - Confirms that data was received\r",
-											"                        if (pm.response.json().data.result.length > 0)\r",
-											"                        {\r",
-											"                            pm.expect(true).to.be.true;\r",
-											"                        };\r",
-											"                        break;\r",
-											"                    default:\r",
-											"                        //BP ID sent was shorter than 6 digits\r",
-											"                        if (pm.response.json().data.result.length > 0)\r",
-											"                        {\r",
-											"                            pm.expect(true).to.be.true;\r",
-											"                            console.log(\"While the test passes for the number of results returned, an insufficient number of BP ID digits was passed in\")\r",
-											"                        };\r",
-											"                }\r",
-											"                break;\r",
-											"            case \"BpName\":\r",
-											"                //console.log(\"Functional Search Test for CMS Account Search using BP Name\")\r",
-											"                //String passed in is to be a minimum of 4 characters as validated in the UI\r",
-											"                pm.expect(true).to.be.true;\r",
-											"                break;\r",
-											"            default:\r",
-											"                //console.log(\"Search Type Not Recognized\")\r",
-											"                throw new Error(\"Functional Test Cannot Be Run - Search Type not recognized\" + pm.request.url.query.get(\"searchType\"));\r",
-											"                //pm.test.skip(\"Functional Test Cannot Be Run - Search Type not recognized\"), function () { };\r",
-											"        }\r",
-											"    });\r",
-											"} else \r",
-											"{\r",
-											"    //console.log(\"Functional Search Test Skipped - No Results Returned or Error Code Not 20000\")\r",
-											"    pm.test.skip(\"Functional Search Test Skipped - No Results Returned or Error Code Not 20000\", function(){});\r",
-											"};\r",
-											"\r",
-											"//console.info(pm.response.json());\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {
-											"@ilab44/basic_test_scripts": {
-												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
-											}
-										},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "2ba5ca23-0d22-499e-b8f9-371ac0bf4d7f",
-										"exec": [
-											"const standardDataArrays = pm.require('@ilab44/standard_data_arrays');\r",
-											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
-											"\r",
-											"\r",
-											"\r",
-											"\r",
-											"\r",
-											"/*\r",
-											"    There is still one more search parameter that is to be added which is related to the active/inactive CMS accounts.  When that filter is added, there will be one more item that has to be added to the URL and parameters list.\r",
-											"*/\r",
-											"\r",
-											"// Sample of URL: https://sbx.dda-integration-api.fhlbi.com/accounts?searchType=CmsNumber&searchValue=9997&pageSize=15&pageIndex=1&accountStatus=Active\r",
-											"\r",
-											"\r",
-											"\r",
-											"\r",
-											"\r",
-											"console.log(\"Running CMSAccountSearch API Request --> Manually Provided Parameters\")\r",
-											"//let sSearchTypeData = pm.iterationData.get(\"sSearchType\")\r",
-											"\r",
-											"/*\r",
-											"if (bIntegratedExecution || bIntegratedExecution !== undefined)\r",
-											"{\r",
-											"    // This code looks for the global parameters to replace the hard-entered paramter values in the event this request is run in a pre-request or post-response of another API request.\r",
-											"    pm.request.url.query.repopulate(\"searchType\");\r",
-											"};\r",
-											"*/\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {
-											"@ilab44/standard_data_arrays": {
-												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
-											},
-											"@ilab44/basic_test_scripts": {
-												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
-											}
-										},
-										"requests": {}
-									}
-								}
-							],
-							"id": "28bd6c20-d050-471d-aa32-606e6d8bc9f0",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=BpName&searchValue=Credit&pageSize=25&pageIndex=1&accountStatus=Active&accountTitleCode=",
-									"protocol": "https",
-									"host": [
-										"{{environment}}{{baseURL_Integration}}accounts"
-									],
-									"path": [
-										""
-									],
-									"query": [
-										{
-											"key": "searchType",
-											"value": "BpName",
-											"description": "Three types: BpId, CmsNumber, BpName"
-										},
-										{
-											"key": "searchValue",
-											"value": "Credit",
-											"description": "Data found in the Search box in the UI"
-										},
-										{
-											"key": "pageSize",
-											"value": "25"
-										},
-										{
-											"key": "pageIndex",
-											"value": "1"
-										},
-										{
-											"key": "accountStatus",
-											"value": "Active",
-											"description": "Active / Closed"
-										},
-										{
-											"key": "accountTitleCode",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Close Account Integr",
 							"event": [
 								{
@@ -1188,6 +974,220 @@
 											"key": "cmsNumber",
 											"value": "77719995",
 											"type": "string"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CMS Account Search",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d250ed27-e03e-4ca3-96a5-011757af69a8",
+										"exec": [
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"console.log(\"Running CMS Account Search Post-Request Script\")\r",
+											"\r",
+											"//Sample of the schema for response:\r",
+											"const postSchema = \r",
+											"{\r",
+											"  \"data\": {\r",
+											"    \"currentPage\": 0,\r",
+											"    \"pageCount\": 0,\r",
+											"    \"pageSize\": 0,\r",
+											"    \"rowCount\": 0,\r",
+											"    \"result\": [\r",
+											"      {\r",
+											"        \"cmsNumber\": 0,\r",
+											"        \"type\": \"string\",\r",
+											"        \"status\": \"string\",\r",
+											"        \"titleCode\": 0,\r",
+											"        \"titleDescription\": \"string\",\r",
+											"        \"bpId\": 0,\r",
+											"        \"bpName\": \"string\",\r",
+											"        \"accountSearchResultsMaxLimitMessage\": \"string\",\r",
+											"        \"titleCodeAndDescription\": \"string\"\r",
+											"      }\r",
+											"    ]\r",
+											"  },\r",
+											"  \"errorCode\": 1,\r",
+											"  \"errorDetail\": {\r",
+											"    \"statusCode\": 0,\r",
+											"    \"path\": \"string\",\r",
+											"    \"errorMessage\": \"string\",\r",
+											"    \"stackTrace\": \"string\"\r",
+											"  },\r",
+											"  \"isSuccess\": true\r",
+											"}\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(Number(10000),pm.response);\r",
+											"basicTestScripts.testSchemaProper(postSchema,pm.response,1);\r",
+											"\r",
+											"//Function test for the type of search that was conducted to ensure data was returned unless no results were available for the search criteria.\r",
+											"console.log (\"Request Test #1 - Checking for Functional Search Test\")\r",
+											"if (pm.response.json().errorCode === 20000 && pm.response.json().data.rowCount > 0) \r",
+											"{\r",
+											"    //console.log(\"errorCode was 20000 with a rowCount greater than zero\");\r",
+											"    ((pm.response.json().data.currentPage > pm.response.json().data.pageCount) ? pm.test.skip : pm.test)(\"Functional Search Test for \" + pm.request.url.query.get(\"searchType\") + \" where the indicated page is \" + pm.request.url.query.get(\"pageIndex\") + \" and total pages is \" + pm.response.json().data.pageCount, function ()\r",
+											"    {\r",
+											"        //console.log(\"Running the test on the Functional Search Test\")\r",
+											"        switch (pm.request.url.query.get(\"searchType\")) \r",
+											"        {\r",
+											"            case \"CmsNumber\":\r",
+											"                console.log(\"Functional Search Test for CMS Account Search using CMS Account Number\")\r",
+											"                pm.expect(true).to.be.true;\r",
+											"                break;\r",
+											"            case \"BpId\":\r",
+											"                console.log(\"Functional Search Test for CMS Account Search using BP ID\")\r",
+											"                //Validation that a 6 digit number is passed in is done in the UI\r",
+											"                //  There is no validation of the BP ID length in the API\r",
+											"                switch (String(pm.request.url.query.get(\"searchValue\")).length)\r",
+											"                {\r",
+											"                    case 6:\r",
+											"                        //Code - Confirms that data was received\r",
+											"                        if (pm.response.json().data.result.length > 0)\r",
+											"                        {\r",
+											"                            pm.expect(true).to.be.true;\r",
+											"                        };\r",
+											"                        break;\r",
+											"                    default:\r",
+											"                        //BP ID sent was shorter than 6 digits\r",
+											"                        if (pm.response.json().data.result.length > 0)\r",
+											"                        {\r",
+											"                            pm.expect(true).to.be.true;\r",
+											"                            console.log(\"While the test passes for the number of results returned, an insufficient number of BP ID digits was passed in\")\r",
+											"                        };\r",
+											"                }\r",
+											"                break;\r",
+											"            case \"BpName\":\r",
+											"                //console.log(\"Functional Search Test for CMS Account Search using BP Name\")\r",
+											"                //String passed in is to be a minimum of 4 characters as validated in the UI\r",
+											"                pm.expect(true).to.be.true;\r",
+											"                break;\r",
+											"            default:\r",
+											"                //console.log(\"Search Type Not Recognized\")\r",
+											"                throw new Error(\"Functional Test Cannot Be Run - Search Type not recognized\" + pm.request.url.query.get(\"searchType\"));\r",
+											"                //pm.test.skip(\"Functional Test Cannot Be Run - Search Type not recognized\"), function () { };\r",
+											"        }\r",
+											"    });\r",
+											"} else \r",
+											"{\r",
+											"    //console.log(\"Functional Search Test Skipped - No Results Returned or Error Code Not 20000\")\r",
+											"    pm.test.skip(\"Functional Search Test Skipped - No Results Returned or Error Code Not 20000\", function(){});\r",
+											"};\r",
+											"\r",
+											"//console.info(pm.response.json());\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2ba5ca23-0d22-499e-b8f9-371ac0bf4d7f",
+										"exec": [
+											"const standardDataArrays = pm.require('@ilab44/standard_data_arrays');\r",
+											"const basicTestScripts = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"/*\r",
+											"    There is still one more search parameter that is to be added which is related to the active/inactive CMS accounts.  When that filter is added, there will be one more item that has to be added to the URL and parameters list.\r",
+											"*/\r",
+											"\r",
+											"// Sample of URL: https://sbx.dda-integration-api.fhlbi.com/accounts?searchType=CmsNumber&searchValue=9997&pageSize=15&pageIndex=1&accountStatus=Active\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"console.log(\"Running CMSAccountSearch API Request --> Manually Provided Parameters\")\r",
+											"//let sSearchTypeData = pm.iterationData.get(\"sSearchType\")\r",
+											"\r",
+											"/*\r",
+											"if (bIntegratedExecution || bIntegratedExecution !== undefined)\r",
+											"{\r",
+											"    // This code looks for the global parameters to replace the hard-entered paramter values in the event this request is run in a pre-request or post-response of another API request.\r",
+											"    pm.request.url.query.repopulate(\"searchType\");\r",
+											"};\r",
+											"*/\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {
+											"@ilab44/standard_data_arrays": {
+												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
+											},
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											}
+										},
+										"requests": {}
+									}
+								}
+							],
+							"id": "28bd6c20-d050-471d-aa32-606e6d8bc9f0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/?searchType=BpName&searchValue=Credit&pageSize=25&pageIndex=1&accountStatus=Active&accountTitleCode=",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_Integration}}accounts"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "searchType",
+											"value": "BpName",
+											"description": "Three types: BpId, CmsNumber, BpName"
+										},
+										{
+											"key": "searchValue",
+											"value": "Credit",
+											"description": "Data found in the Search box in the UI"
+										},
+										{
+											"key": "pageSize",
+											"value": "25"
+										},
+										{
+											"key": "pageIndex",
+											"value": "1"
+										},
+										{
+											"key": "accountStatus",
+											"value": "Active",
+											"description": "Active / Closed"
+										},
+										{
+											"key": "accountTitleCode",
+											"value": ""
 										}
 									]
 								}
@@ -3001,45 +3001,7 @@
 								"header": [],
 								"url": "https://{{environment}}{{baseURL_LL}}dda/journals/batch"
 							},
-							"response": [
-								{
-									"id": "7d2536e5-12c8-49ba-ba52-02e41270c73b",
-									"name": "DDA Journal Bulk Create",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"url": "https://test.dda-api.fhlbi.com/dda/journals/batch"
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": null,
-									"header": [
-										{
-											"key": ":status",
-											"value": 200
-										},
-										{
-											"key": "content-type",
-											"value": "application/json; charset=utf-8"
-										},
-										{
-											"key": "server",
-											"value": "Microsoft-IIS/10.0"
-										},
-										{
-											"key": "x-powered-by",
-											"value": "ASP.NET"
-										},
-										{
-											"key": "date",
-											"value": "Thu, 07 May 2026 20:38:31 GMT"
-										}
-									],
-									"cookie": [],
-									"responseTime": null,
-									"body": "{\n    \"data\": {\n        \"status\": \"Partial_Success\",\n        \"total\": 20,\n        \"succeeded\": 19,\n        \"failed\": 1,\n        \"journalBatchResults\": [\n            {\n                \"index\": 1,\n                \"isSuccess\": true,\n                \"journalId\": 23046715,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 2,\n                \"isSuccess\": true,\n                \"journalId\": 23046716,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 3,\n                \"isSuccess\": true,\n                \"journalId\": 23046717,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 4,\n                \"isSuccess\": true,\n                \"journalId\": 23046718,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 5,\n                \"isSuccess\": true,\n                \"journalId\": 23046719,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 6,\n                \"isSuccess\": true,\n                \"journalId\": 23046720,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 7,\n                \"isSuccess\": true,\n                \"journalId\": 23046721,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 8,\n                \"isSuccess\": true,\n                \"journalId\": 23046722,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 9,\n                \"isSuccess\": true,\n                \"journalId\": 23046723,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 10,\n                \"isSuccess\": true,\n                \"journalId\": 23046724,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 11,\n                \"isSuccess\": true,\n                \"journalId\": 23046725,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 12,\n                \"isSuccess\": true,\n                \"journalId\": 23046726,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 13,\n                \"isSuccess\": true,\n                \"journalId\": 23046727,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 14,\n                \"isSuccess\": true,\n                \"journalId\": 23046728,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 15,\n                \"isSuccess\": true,\n                \"journalId\": 23046729,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 16,\n                \"isSuccess\": true,\n                \"journalId\": 23046730,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 17,\n                \"isSuccess\": true,\n                \"journalId\": 23046731,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 18,\n                \"isSuccess\": false,\n                \"journalId\": null,\n                \"journal\": {\n                    \"cmsNumber\": 20012400,\n                    \"accountType\": \"TIM\",\n                    \"journalCode\": \"XP\",\n                    \"postcode\": 1,\n                    \"amount\": 165108,\n                    \"effectiveDate\": \"2026-05-07T16:30:00\",\n                    \"explanation\": \"Threepiousedhismagic\",\n                    \"initials\": \"XB\",\n                    \"clearCode\": 0,\n                    \"originatingUser\": \"sbose\",\n                    \"applicationId\": \"DDA\"\n                },\n                \"error\": {\n                    \"statusCode\": 422,\n                    \"exceptionMessage\": \"Unprocessable Journal Codes.\"\n                }\n            },\n            {\n                \"index\": 19,\n                \"isSuccess\": true,\n                \"journalId\": 23046732,\n                \"journal\": null,\n                \"error\": null\n            },\n            {\n                \"index\": 20,\n                \"isSuccess\": true,\n                \"journalId\": 23046733,\n                \"journal\": null,\n                \"error\": null\n            }\n        ]\n    },\n    \"errorCode\": 20000,\n    \"errorDetail\": null,\n    \"isSuccess\": true\n}"
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "DDA Aggregated Balances",
