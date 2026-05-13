@@ -746,6 +746,18 @@
 							"response": []
 						},
 						{
+							"name": "Delete Account",
+							"id": "75ae47df-e721-4e95-908e-fdb3de2451e5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						},
+						{
 							"name": "Close Account Integr",
 							"event": [
 								{
@@ -1195,34 +1207,217 @@
 							"response": []
 						},
 						{
+							"name": "Account Validations",
+							"id": "0713612f-a5ed-4160-beeb-efc42b0e7bf7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/validations/0?accountType=CMS&includeAccountWithSharedCmsNumber=false&actionType=0",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_Integration}}accounts"
+									],
+									"path": [
+										":cmsNumber",
+										"validations",
+										"0"
+									],
+									"query": [
+										{
+											"key": "accountType",
+											"value": "CMS"
+										},
+										{
+											"key": "includeAccountWithSharedCmsNumber",
+											"value": "false"
+										},
+										{
+											"key": "actionType",
+											"value": "0",
+											"description": "0 - Close; 1 - Delete; 2 - Reopen; 3 - Merge"
+										}
+									],
+									"variable": [
+										{
+											"key": "cmsNumber",
+											"value": "77719995"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "CreateCMSAccount",
 							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
-										"type": "text/javascript",
+										"id": "9e18ea70-8725-43c1-84ae-c6aa192b6231",
 										"exec": [
-											"const basicTestScripts = pm.require(\"@ilab44/basic_test_scripts\");\r\n\r\nconst schema = \r\n{\r\n    \"cmsNumber\": 0,\r\n    \"acctTitle\": 99,\r\n    \"ddaAccountTitle\":\r\n    {\r\n        \"titleCode\": 0,\r\n        \"title\": \"string\"\r\n    },\r\n    \"acctType\": \"string\",\r\n    \"ddaAccountType\":\r\n    {\r\n        \"typeCode\": \"string\",\r\n        \"descrip\": \"string\",\r\n        \"createUser\": \"string\",\r\n        \"createDate\": \"2026-03-10T17:37:04.719Z\",\r\n        \"updateUser\": \"string\",\r\n        \"updateDate\": \"2026-03-10T17:37:04.719Z\",\r\n        \"remarks\": \"string\"\r\n    },\r\n    \"acctStatus\": \"string\",\r\n    \"creditWatch\": \"string\",\r\n    \"intAcct\": 99999999,\r\n    \"intAcctType\": \"stri\",\r\n    \"feeAcct\": 99999999,\r\n    \"feeAcctType\": \"stri\",\r\n    \"homeOffAcct\": 99999999,\r\n    \"idxId\": \"strin\",\r\n    \"bpId\": 0,\r\n    \"contactId\": 0,\r\n    \"branchCode\": 0,\r\n    \"address1\": \"string\",\r\n    \"address2\": \"string\",\r\n    \"address3\": \"string\",\r\n    \"address4\": \"string\",\r\n    \"address5\": \"string\",\r\n    \"zipCode\": 0,\r\n    \"shortName\": \"string\",\r\n    \"intPay\": 0,\r\n    \"dailyStmt\": 0,\r\n    \"prtRpts\": 0,\r\n    \"mbrSince\": \"2026-03-10T17:37:04.719Z\",\r\n    \"ytdOdCount\": 0,\r\n    \"ytdLocCount\": 0,\r\n    \"ytdIntPaid\": 0,\r\n    \"free\": \"N\",\r\n    \"createDate\": \"2026-03-10T17:37:04.719Z\",\r\n    \"createUser\": \"string\",\r\n    \"updateDate\": \"2026-03-10T17:37:04.719Z\",\r\n    \"updateUser\": \"string\",\r\n    \"remarks\": \"string\",\r\n    \"rowlock\": \"string\",\r\n    \"cutoff15\": \"string\",\r\n    \"legalDescription\": \"string\"\r\n}\r\n\r\n\r\n"
+											"const basicTestScripts = pm.require(\"@ilab44/basic_test_scripts\");\r",
+											"\r",
+											"const schema = \r",
+											"{\r",
+											"  \"cmsNumber\": 0,\r",
+											"  \"type\": \"string\",\r",
+											"  \"status\": \"string\",\r",
+											"  \"title\": \"string\",\r",
+											"  \"titleCode\": 0,\r",
+											"  \"isFreeAccount\": true,\r",
+											"  \"payInterestToCmsNumber\": 0,\r",
+											"  \"payInterestToType\": \"string\",\r",
+											"  \"chargeFeesToCmsNumber\": 0,\r",
+											"  \"chargeFeesToType\": \"string\",\r",
+											"  \"masterAccountCmsNumber\": 0,\r",
+											"  \"interestRateId\": \"string\",\r",
+											"  \"indexTypeModel\": {\r",
+											"    \"idxId\": \"string\",\r",
+											"    \"idxLabel\": \"string\"\r",
+											"  },\r",
+											"  \"balance\": 0,\r",
+											"  \"legalDescription\": \"string\",\r",
+											"  \"shortName\": \"string\",\r",
+											"  \"businessPartner\": {\r",
+											"    \"bpId\": 0,\r",
+											"    \"bpName\": \"string\",\r",
+											"    \"bpType\": \"string\",\r",
+											"    \"city\": \"string\",\r",
+											"    \"stateId\": \"string\",\r",
+											"    \"state\": \"string\",\r",
+											"    \"countryId\": \"string\",\r",
+											"    \"country\": \"string\",\r",
+											"    \"address1\": \"string\",\r",
+											"    \"address2\": \"string\",\r",
+											"    \"zip\": \"string\",\r",
+											"    \"poBox\": \"string\"\r",
+											"  },\r",
+											"  \"cmsRelationship\": {\r",
+											"    \"bpId\": 0,\r",
+											"    \"cmsNbr\": 0,\r",
+											"    \"cmsNbrType\": \"M\"\r",
+											"  },\r",
+											"  \"isExcludeFromWiresAvailableBalance\": true\r",
+											"}\r",
+											"\r",
+											"\r",
+											""
 										],
+										"type": "text/javascript",
 										"packages": {
 											"@ilab44/basic_test_scripts": {
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
 											}
-										}
+										},
+										"requests": {}
 									}
 								},
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
+										"id": "e3ac3e13-aa88-42e0-88d9-fc4caf9984ac",
 										"exec": [
-											"const basicTestScripts = pm.require(\"@ilab44/basic_test_scripts\");\r\n\r\nlet objResponse = pm.response;\r\nconsole.info(\"Response: \" + objResponse.text);\r\nconsole.info(\"Response Time is: \" + objResponse.responseTime + \"ms\");\r\nconsole.info(\"Response Code is: \" + objResponse.code);\r\nconsole.info(\"JSON Response is: \" + JSON.stringify(objResponse.json()));\r\n\r\nconst schema =\r\n{\r\n    \"data\": \r\n    {\r\n        \"cmsNumber\": 0,\r\n        \"acctTitle\": 99,\r\n        \"ddaAccountTitle\": \r\n        {\r\n            \"titleCode\": 0,\r\n            \"title\": \"string\",\r\n            \"titleCodeAndDescription\": \"string\"\r\n        },\r\n        \"acctType\": \"string\",\r\n        \"ddaAccountType\":\r\n        {\r\n            \"typeCode\": \"string\",\r\n            \"descrip\": \"string\",\r\n            \"createUser\": \"string\",\r\n            \"createDate\": \"2026-03-10T17:37:04.724Z\",\r\n            \"updateUser\": \"string\",\r\n            \"updateDate\": \"2026-03-10T17:37:04.724Z\",\r\n            \"remarks\": \"string\"\r\n        },\r\n        \"acctStatus\": \"string\",\r\n        \"creditWatch\": \"string\",\r\n        \"intAcct\": 99999999,\r\n        \"intAcctType\": \"stri\",\r\n        \"feeAcct\": 99999999,\r\n        \"feeAcctType\": \"stri\",\r\n        \"homeOffAcct\": 99999999,\r\n        \"idxId\": \"strin\",\r\n        \"bpId\": 0,\r\n        \"contactId\": 0,\r\n        \"branchCode\": 0,\r\n        \"address1\": \"string\",\r\n        \"address2\": \"string\",\r\n        \"address3\": \"string\",\r\n        \"address4\": \"string\",\r\n        \"address5\": \"string\",\r\n        \"zipCode\": 0,\r\n        \"shortName\": \"string\",\r\n        \"intPay\": 0,\r\n        \"dailyStmt\": 0,\r\n        \"prtRpts\": 0,\r\n        \"mbrSince\": \"2026-03-10T17:37:04.724Z\",\r\n        \"ytdOdCount\": 0,\r\n        \"ytdLocCount\": 0,\r\n        \"ytdIntPaid\": 0,\r\n        \"free\": \"Y\",\r\n        \"createDate\": \"2026-03-10T17:37:04.724Z\",\r\n        \"createUser\": \"string\",\r\n        \"updateDate\": \"2026-03-10T17:37:04.724Z\",\r\n        \"updateUser\": \"string\",\r\n        \"remarks\": \"string\",\r\n        \"rowlock\": \"string\",\r\n        \"cutoff15\": \"string\",\r\n        \"legalDescription\": \"string\"\r\n    },\r\n    \"errorCode\": 1,\r\n    \"errorDetail\": \r\n    {\r\n        \"statusCode\": 0,\r\n        \"path\": \"string\",\r\n        \"errorMessage\": \"string\",\r\n        \"stackTrace\": \"string\"\r\n    },\r\n    \"isSuccess\": true\r\n}\r\n\r\n\r\nbasicTestScripts.testRequestSuccess(pm.response);\r\nbasicTestScripts.testAPISuccess(pm.response);\r\nbasicTestScripts.testResponseTime(Number(10000), pm.response);\r\nbasicTestScripts.testPostSchema(schema,pm.response);\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+											"const basicTestScripts = pm.require(\"@ilab44/basic_test_scripts\");\r",
+											"\r",
+											"let objResponse = pm.response;\r",
+											"console.info(\"Response: \" + objResponse.text);\r",
+											"console.info(\"Response Time is: \" + objResponse.responseTime + \"ms\");\r",
+											"console.info(\"Response Code is: \" + objResponse.code);\r",
+											"console.info(\"JSON Response is: \" + JSON.stringify(objResponse.json()));\r",
+											"\r",
+											"const schema =\r",
+											"{\r",
+											"    \"data\": \r",
+											"    {\r",
+											"        \"cmsNumber\": 0,\r",
+											"        \"acctTitle\": 99,\r",
+											"        \"ddaAccountTitle\": \r",
+											"        {\r",
+											"            \"titleCode\": 0,\r",
+											"            \"title\": \"string\",\r",
+											"            \"titleCodeAndDescription\": \"string\"\r",
+											"        },\r",
+											"        \"acctType\": \"string\",\r",
+											"        \"ddaAccountType\":\r",
+											"        {\r",
+											"            \"typeCode\": \"string\",\r",
+											"            \"descrip\": \"string\",\r",
+											"            \"createUser\": \"string\",\r",
+											"            \"createDate\": \"2026-03-10T17:37:04.724Z\",\r",
+											"            \"updateUser\": \"string\",\r",
+											"            \"updateDate\": \"2026-03-10T17:37:04.724Z\",\r",
+											"            \"remarks\": \"string\"\r",
+											"        },\r",
+											"        \"acctStatus\": \"string\",\r",
+											"        \"creditWatch\": \"string\",\r",
+											"        \"intAcct\": 99999999,\r",
+											"        \"intAcctType\": \"stri\",\r",
+											"        \"feeAcct\": 99999999,\r",
+											"        \"feeAcctType\": \"stri\",\r",
+											"        \"homeOffAcct\": 99999999,\r",
+											"        \"idxId\": \"strin\",\r",
+											"        \"bpId\": 0,\r",
+											"        \"contactId\": 0,\r",
+											"        \"branchCode\": 0,\r",
+											"        \"address1\": \"string\",\r",
+											"        \"address2\": \"string\",\r",
+											"        \"address3\": \"string\",\r",
+											"        \"address4\": \"string\",\r",
+											"        \"address5\": \"string\",\r",
+											"        \"zipCode\": 0,\r",
+											"        \"shortName\": \"string\",\r",
+											"        \"intPay\": 0,\r",
+											"        \"dailyStmt\": 0,\r",
+											"        \"prtRpts\": 0,\r",
+											"        \"mbrSince\": \"2026-03-10T17:37:04.724Z\",\r",
+											"        \"ytdOdCount\": 0,\r",
+											"        \"ytdLocCount\": 0,\r",
+											"        \"ytdIntPaid\": 0,\r",
+											"        \"free\": \"Y\",\r",
+											"        \"createDate\": \"2026-03-10T17:37:04.724Z\",\r",
+											"        \"createUser\": \"string\",\r",
+											"        \"updateDate\": \"2026-03-10T17:37:04.724Z\",\r",
+											"        \"updateUser\": \"string\",\r",
+											"        \"remarks\": \"string\",\r",
+											"        \"rowlock\": \"string\",\r",
+											"        \"cutoff15\": \"string\",\r",
+											"        \"legalDescription\": \"string\"\r",
+											"    },\r",
+											"    \"errorCode\": 1,\r",
+											"    \"errorDetail\": \r",
+											"    {\r",
+											"        \"statusCode\": 0,\r",
+											"        \"path\": \"string\",\r",
+											"        \"errorMessage\": \"string\",\r",
+											"        \"stackTrace\": \"string\"\r",
+											"    },\r",
+											"    \"isSuccess\": true\r",
+											"}\r",
+											"\r",
+											"\r",
+											"basicTestScripts.testRequestSuccess(pm.response);\r",
+											"basicTestScripts.testAPISuccess(pm.response);\r",
+											"basicTestScripts.testResponseTime(Number(10000), pm.response);\r",
+											"basicTestScripts.testPostSchema(schema,pm.response);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
 										],
+										"type": "text/javascript",
 										"packages": {
 											"@ilab44/basic_test_scripts": {
 												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
 											}
-										}
+										},
+										"requests": {}
 									}
 								}
 							],
@@ -1235,14 +1430,14 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"cmsNumber\": 0,\r\n    \"acctTitle\": 99,\r\n    \"ddaAccountTitle\": \r\n    {\r\n        \"titleCode\": 0,\r\n        \"title\": \"string\"\r\n    },\r\n    \"acctType\": \"string\",\r\n    \"ddaAccountType\": \r\n    {\r\n        \"typeCode\": \"string\",\r\n        \"descrip\": \"string\",\r\n        \"createUser\": \"string\",\r\n        \"createDate\": \"2026-03-10T17:37:04.719Z\",\r\n        \"updateUser\": \"string\",\r\n        \"updateDate\": \"2026-03-10T17:37:04.719Z\",\r\n        \"remarks\": \"string\"\r\n    },\r\n    \"acctStatus\": \"string\",\r\n    \"creditWatch\": \"string\",\r\n    \"intAcct\": 99999999,\r\n    \"intAcctType\": \"stri\",\r\n    \"feeAcct\": 99999999,\r\n    \"feeAcctType\": \"stri\",\r\n    \"homeOffAcct\": 99999999,\r\n    \"idxId\": \"strin\",\r\n    \"bpId\": 0,\r\n    \"contactId\": 0,\r\n    \"branchCode\": 0,\r\n    \"address1\": \"string\",\r\n    \"address2\": \"string\",\r\n    \"address3\": \"string\",\r\n    \"address4\": \"string\",\r\n    \"address5\": \"string\",\r\n    \"zipCode\": 0,\r\n    \"shortName\": \"string\",\r\n    \"intPay\": 0,\r\n    \"dailyStmt\": 0,\r\n    \"prtRpts\": 0,\r\n    \"mbrSince\": \"2026-03-10T17:37:04.719Z\",\r\n    \"ytdOdCount\": 0,\r\n    \"ytdLocCount\": 0,\r\n    \"ytdIntPaid\": 0,\r\n    \"free\": \"N\",\r\n    \"createDate\": \"2026-03-10T17:37:04.719Z\",\r\n    \"createUser\": \"string\",\r\n    \"updateDate\": \"2026-03-10T17:37:04.719Z\",\r\n    \"updateUser\": \"string\",\r\n    \"remarks\": \"string\",\r\n    \"rowlock\": \"string\",\r\n    \"cutoff15\": \"string\",\r\n    \"legalDescription\": \"string\"\r\n}",
+									"raw": "{\r\n  \"cmsNumber\": 0,\r\n  \"type\": \"string\",\r\n  \"status\": \"string\",\r\n  \"title\": \"string\",\r\n  \"titleCode\": 0,\r\n  \"isFreeAccount\": true,\r\n  \"payInterestToCmsNumber\": 0,\r\n  \"payInterestToType\": \"string\",\r\n  \"chargeFeesToCmsNumber\": 0,\r\n  \"chargeFeesToType\": \"string\",\r\n  \"masterAccountCmsNumber\": 0,\r\n  \"interestRateId\": \"string\",\r\n  \"indexTypeModel\": {\r\n    \"idxId\": \"string\",\r\n    \"idxLabel\": \"string\"\r\n  },\r\n  \"balance\": 0,\r\n  \"legalDescription\": \"string\",\r\n  \"shortName\": \"string\",\r\n  \"businessPartner\": {\r\n    \"bpId\": 0,\r\n    \"bpName\": \"string\",\r\n    \"bpType\": \"string\",\r\n    \"city\": \"string\",\r\n    \"stateId\": \"string\",\r\n    \"state\": \"string\",\r\n    \"countryId\": \"string\",\r\n    \"country\": \"string\",\r\n    \"address1\": \"string\",\r\n    \"address2\": \"string\",\r\n    \"zip\": \"string\",\r\n    \"poBox\": \"string\"\r\n  },\r\n  \"cmsRelationship\": {\r\n    \"bpId\": 0,\r\n    \"cmsNbr\": 0,\r\n    \"cmsNbrType\": \"M\"\r\n  },\r\n  \"isExcludeFromWiresAvailableBalance\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "https://{{environment}}{{baseURL_Integration}}dda/accounts"
+								"url": "https://{{environment}}{{baseURL_Integration}}accounts"
 							},
 							"response": []
 						},
@@ -1314,7 +1509,7 @@
 							"response": []
 						},
 						{
-							"name": "CreateCmsNumber",
+							"name": "Generate Cms Account Number",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1399,51 +1594,6 @@
 									]
 								},
 								"description": "There are two PBIs that make up the core functionliaty of this test script.\n\n- PBI 25269: [https://dev.azure.com/FHLBI/PVS_Member_Experience/_workitems/edit/25269](https://dev.azure.com/FHLBI/PVS_Member_Experience/_workitems/edit/25269)\n    \n- PBI 24569: [https://dev.azure.com/FHLBI/PVS_Member_Experience/_workitems/edit/24569](https://dev.azure.com/FHLBI/PVS_Member_Experience/_workitems/edit/24569)\n    \n\nThese two PBIs are the final locaton of how the CMS account nubers are to be created and the foundation to the API test scripts."
-							},
-							"response": []
-						},
-						{
-							"name": "Account Validations",
-							"id": "0713612f-a5ed-4160-beeb-efc42b0e7bf7",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://{{environment}}{{baseURL_Integration}}accounts/:cmsNumber/validations/0?accountType=CMS&includeAccountWithSharedCmsNumber=false&actionType=0",
-									"protocol": "https",
-									"host": [
-										"{{environment}}{{baseURL_Integration}}accounts"
-									],
-									"path": [
-										":cmsNumber",
-										"validations",
-										"0"
-									],
-									"query": [
-										{
-											"key": "accountType",
-											"value": "CMS"
-										},
-										{
-											"key": "includeAccountWithSharedCmsNumber",
-											"value": "false"
-										},
-										{
-											"key": "actionType",
-											"value": "0",
-											"description": "0 - Close; 1 - Delete; 2 - Reopen; 3 - Merge"
-										}
-									],
-									"variable": [
-										{
-											"key": "cmsNumber",
-											"value": "77719995"
-										}
-									]
-								}
 							},
 							"response": []
 						}
