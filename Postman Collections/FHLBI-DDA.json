@@ -3614,7 +3614,7 @@
 											"    pm.test(testTitle, function()\r",
 											"    //tc.test(testTitle, function()\r",
 											"    {\r",
-											"      pm.expect(pm.response.json().errorCode, \"Failed with a statusCode of \" + tc.response.json.errorDetail.statusCode + \".  Error message(s): \" + tc.response.json.errorDetail.errorMessage + \".\").to.equal(20000);\r",
+											"      pm.expect(pm.response.json().errorCode, \"Failed with a statusCode of \" + pm.response.json().errorDetail.statusCode + \".  Error message(s): \" + pm.response.json().errorDetail.errorMessage + \".\").to.be.equal(20000);\r",
 											"      //expect(tc.response.json.errorCode, \"Failed with a statusCode of \" + tc.response.json.errorDetail.statusCode + \".  Error message(s): \" + tc.response.json.errorDetail.errorMessage + \".\").to.equal(20000);\r",
 											"    });\r",
 											"}\r",
