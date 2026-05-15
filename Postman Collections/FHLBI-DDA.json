@@ -3485,9 +3485,13 @@
 										"id": "9cf9dff0-6c9d-4bfd-bbce-e8903c1bca77",
 										"exec": [
 											"console.log(\"Linking Master Test Scripts\");\r",
-											"const testBasic = require(tc.getVar(\"linkMasterTests\"));\r",
+											"//const testBasic = require(tc.getVar(\"linkMasterTests\"));\r",
+											"const testBasic = pm.require('@ilab44/basic_test_scripts');\r",
+											"\r",
 											"console.log(\"Linking Testing Data Arrays\");\r",
-											"const testData = require(tc.getVar(\"linkDataArrays\"));\r",
+											"//const testData = require(tc.getVar(\"linkDataArrays\"));\r",
+											"const testData = pm.require('@ilab44/standard_data_arrays');\r",
+											"\r",
 											"\r",
 											"console.log(\"Setting the Response schema\");\r",
 											"const respSchema = \r",
@@ -3539,7 +3543,14 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {},
+										"packages": {
+											"@ilab44/basic_test_scripts": {
+												"id": "019c297e-73a5-7d01-9e28-86c97f9bfd85"
+											},
+											"@ilab44/standard_data_arrays": {
+												"id": "019d2608-38cd-7ea2-9eaa-c3542e88dcf1"
+											}
+										},
 										"requests": {}
 									}
 								},
@@ -3604,16 +3615,16 @@
 											"switch(tc.response.json.errorCode){\r",
 											"  case 20000:\r",
 											"    //tc.test(testTitle, function()\r",
-											"    pm.test(testTitle, functino()\r",
+											"    pm.test(testTitle, function()\r",
 											"    {\r",
 											"      pm.expect(pm.response.json().errorCode).to.be.equal(20000);\r",
 											"      //expect(tc.response.json.errorCode).to.equal(20000);\r",
 											"    });\r",
 											"    break;\r",
 											"  default:\r",
-											"    pm.test(testTitle, function()\r",
-											"    //tc.test(testTitle, function()\r",
-											"    {\r",
+											"    pm.test(testTitle, function(){\r",
+											"    //tc.test(testTitle, function(){\r",
+											"    \r",
 											"      pm.expect(pm.response.json().errorCode, \"Failed with a statusCode of \" + pm.response.json().errorDetail.statusCode + \".  Error message(s): \" + pm.response.json().errorDetail.errorMessage + \".\").to.be.equal(20000);\r",
 											"      //expect(tc.response.json.errorCode, \"Failed with a statusCode of \" + tc.response.json.errorDetail.statusCode + \".  Error message(s): \" + tc.response.json.errorDetail.errorMessage + \".\").to.equal(20000);\r",
 											"    });\r",
