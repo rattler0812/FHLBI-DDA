@@ -3475,6 +3475,115 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Delete Cms Account",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9cf9dff0-6c9d-4bfd-bbce-e8903c1bca77",
+										"exec": [
+											"console.log(\"Linking Master Test Scripts\");\r",
+											"const testBasic = require(tc.getVar(\"linkMasterTests\"));\r",
+											"console.log(\"Linking Testing Data Arrays\");\r",
+											"const testData = require(tc.getVar(\"linkDataArrays\"));\r",
+											"\r",
+											"console.log(\"Setting the Response schema\");\r",
+											"const respSchema = \r",
+											"{\r",
+											"  \"data\": \"string\",\r",
+											"  \"errorCode\": 1,\r",
+											"  \"errorDetail\": {\r",
+											"    \"statusCode\": 0,\r",
+											"    \"path\": \"string\",\r",
+											"    \"errorMessage\": \"string\",\r",
+											"    \"stackTrace\": \"string\"\r",
+											"  },\r",
+											"  \"isSuccess\": true\r",
+											"}\r",
+											"\r",
+											"console.log(\"Setting the Request schema\");\r",
+											"const reqSchema = {\r",
+											"  //Code\r",
+											"}\r",
+											"\r",
+											"console.log(\"Moving the schemas to their variables\");\r",
+											"tc.setVar(\"bdyRespSchemaComp\", respSchema);\r",
+											"tc.setVar(\"bdyReqSchemaComp\", reqSchema);\r",
+											"\r",
+											"console.log(\"Searching for a random \")\r",
+											"let arrayCmsNumbers = testData.CmsAcctList();\r",
+											"console.info(\"arrayJournalBatch is a type: \" + typeof arrayJournalBatch);\r",
+											"console.info(\"Journal Array: \" + JSON.stringify(arrayJournalBatch));\r",
+											"let xfrCmsData = testData.randSelectElement(JSON.stringify(arrayCmsNumbers));\r",
+											"\r",
+											"console.log(\"Passing test data values to urlQuery\");\r",
+											"tc.setVar(\"nbrCms\", xfrCmsData.cmsNumber);\r",
+											"tc.setVar(\"typeCms\", xfrCmsData.accountType);\r",
+											"tc.setVar(\"bothAccounts\", xfrCmsData.bothAccounts);\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "5e3ca67c-f4d5-414d-80f8-8bc2fab17caf",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "6742df07-4dbb-4fc8-849f-4d14070634e0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{environment}}{{baseURL_LL}}dda/accounts/:cmsNumber?accountType={{typeCms}}&deleteBothAccounts={{bothAccounts}}",
+									"protocol": "https",
+									"host": [
+										"{{environment}}{{baseURL_LL}}dda"
+									],
+									"path": [
+										"accounts",
+										":cmsNumber"
+									],
+									"query": [
+										{
+											"key": "accountType",
+											"value": "{{typeCms}}"
+										},
+										{
+											"key": "deleteBothAccounts",
+											"value": "{{bothAccounts}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "cmsNumber",
+											"value": "{{nbrCms}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"id": "5b0b5441-68b9-475c-887c-ac041bf9aef5"
